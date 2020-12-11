@@ -1,0 +1,33 @@
+# --------------------------------------
+Terraform 
+# --------------------------------------
+
+resource "aws_instance" "web" {
+  ami = "ami-7f89a64f"
+  instance_type = "t1.micro"
+  ebs_block_device {
+    device_name = "/dev/sdg"
+    volume_size = 5
+    volume_type = "gp2"
+    delete_on_termination = false
+  }
+}
+
+
+
+
+
+
+
+# --------------------------------------
+use_awscli_to_find_vol_id.sh
+# --------------------------------------
+
+# Get EC2 Instance ID from Terraform Output
+INSTANCE_ID=$(terraform show | grep -A 1 aws_instance.web | tail -n 1 | awk '{print $3}')
+
+# Get the /dev/sdg volume details from AWS CLI
+aws ec2 describe-volumes --filters Name=attachment.instance-id,Values=$INSTANCE_ID --filters Name=attachment.device,Values=/dev/sdg
+
+# Use jq to scope those details down to just Volume ID
+aws ec2 describe-volumes --filters Name=attachment.instance-id,Values=$INSTANCE_ID --filters Name=attachment.device,Values=/dev/sdg | jq -r '.Volumes[].VolumeId'
