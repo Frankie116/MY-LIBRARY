@@ -1,4 +1,4 @@
-```sh
+
 ## ---------------------------------------------------------------------------------------------------
 ## version  1.4
 ## Library: https://github.com/Frankie116/my-library.git
@@ -8,6 +8,8 @@
 ## --------------------------------------------
 ## Status cmds
 ## --------------------------------------------
+
+```sh
 docker ps
 docker ps -a
 
@@ -19,19 +21,25 @@ docker logs mongodb
 ## list the repositories in an aws registry
 aws ecr describe-repositories
 aws ecr describe-images --repository-name amazonlinux
-
+```
 
 
 ## --------------------------------------------
 ## Login to repo to enable images to be pulled
 ## --------------------------------------------
-docker login
 
+```sh
+docker login
+```
 ## stdin enables passwords to be passed through non-interactively.
+
+```sh
 cat ~/my_password.txt | docker login --username foo --password-stdin 
+```
 
 ## aws ecr login example
 aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 396057208705.dkr.ecr.eu-west-2.amazonaws.com
+```
 
 
 
@@ -224,8 +232,9 @@ docker rmi $(<container-id-1> <container-id-2>)
 ## Delete networks
 ## --------------------------------------------
 docker network rm <my-network-id>
-```
 
+
+| GitHub | [plugins/github/README.md][PlGh] |
 
 
 
