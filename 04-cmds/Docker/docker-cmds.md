@@ -9,7 +9,6 @@
 ## --------------------------------------------
 ## Status cmds
 ## --------------------------------------------
-
 docker ps
 docker ps -a
 
@@ -26,19 +25,13 @@ aws ecr describe-images --repository-name amazonlinux
 ## --------------------------------------------
 ## Login to repo to enable images to be pulled
 ## --------------------------------------------
-
-
 docker login
 
 ## stdin enables passwords to be passed through non-interactively.
-
-
 cat ~/my_password.txt | docker login --username foo --password-stdin 
-
 
 ## aws ecr login example
 aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 396057208705.dkr.ecr.eu-west-2.amazonaws.com
-
 
 
 
