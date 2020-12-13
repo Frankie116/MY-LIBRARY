@@ -1,3 +1,4 @@
+```sh
 ## ---------------------------------------------------------------------------------------------------
 ## version  1.4
 ## Library: https://github.com/Frankie116/my-library.git
@@ -5,9 +6,8 @@
 ## ---------------------------------------------------------------------------------------------------
 
 ## --------------------------------------------
-> Status cmds
+## Status cmds
 ## --------------------------------------------
-```sh
 docker ps
 docker ps -a
 
@@ -23,7 +23,7 @@ aws ecr describe-images --repository-name amazonlinux
 
 
 ## --------------------------------------------
->> Login to repo to enable images to be pulled
+## Login to repo to enable images to be pulled
 ## --------------------------------------------
 docker login
 
@@ -36,7 +36,7 @@ aws ecr get-login-password --region eu-west-2 | docker login --username AWS --pa
 
 
 ## --------------------------------------------
-*Pull docker image cmds*
+## Pull docker image cmds
 ## --------------------------------------------
 docker pull redis
 docker pull redis:<my-tag>
@@ -224,8 +224,7 @@ docker rmi $(<container-id-1> <container-id-2>)
 ## Delete networks
 ## --------------------------------------------
 docker network rm <my-network-id>
-
-
+```
 
 
 
