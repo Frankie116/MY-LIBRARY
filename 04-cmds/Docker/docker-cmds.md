@@ -5,7 +5,7 @@
 ## ---------------------------------------------------------------------------------------------------
 
 ## --------------------------------------------
-> [Status cmds][df1]
+> Status cmds
 ## --------------------------------------------
 docker ps
 docker ps -a
@@ -22,7 +22,7 @@ aws ecr describe-images --repository-name amazonlinux
 
 
 ## --------------------------------------------
-## Login to repo to enable images to be pulled
+>> Login to repo to enable images to be pulled
 ## --------------------------------------------
 docker login
 
@@ -35,7 +35,7 @@ aws ecr get-login-password --region eu-west-2 | docker login --username AWS --pa
 
 
 ## --------------------------------------------
-## Pull docker image cmds
+*Pull docker image cmds*
 ## --------------------------------------------
 docker pull redis
 docker pull redis:<my-tag>
