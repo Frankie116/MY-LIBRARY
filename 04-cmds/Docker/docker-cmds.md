@@ -19,7 +19,7 @@ docker logs mongodb
 ## list the repositories in an aws registry
 aws ecr describe-repositories
 aws ecr describe-images --repository-name amazonlinux
-```
+
 
 
 ## --------------------------------------------
