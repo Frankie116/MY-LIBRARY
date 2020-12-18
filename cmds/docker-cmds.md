@@ -83,6 +83,7 @@ mongo
 ## file.  This cmd also creates required docker networks
 ## -----------------------------------------------------------------
 docker-compose -f docker-compose.yaml up <-d optional>
+docker-compose up <-d optional>
 
 ## my-dc-file.yaml (starts 3 containers,"my-app', 'mongodb' & 'mongo-express'):
 version: '3'

@@ -1,30 +1,13 @@
 # ---------------------------------------------------------------------------------------------------
-# version  1.2
+# version  1.5
 # Library: https://github.com/Frankie116/my-library.git
-# Output values
+# outputs
 # ---------------------------------------------------------------------------------------------------
 
 
-# 1a-vpc.tf -------------------------------------------------------------
-output this-vpc-arn {
-  description          = "ARN of the vpc"
-  value                = module.my-vpc.vpc_arn
+output "my-alb-hostname" {
+  value = aws_lb.my-alb.dns_name
 }
-
-
-# 2a-ec2-choose-ami -----------------------------------------------------
-output these-instance-ids {
-  description          = "IDs of EC2 instances"
-  value                = [aws_instance.my-server.*.id]
-}
-
-
-# 4a-lb-alb.tf ----------------------------------------------------------
-output this-original-dns-name {
-  description          = "Original Public DNS name of load balancer"
-  value                = aws_lb.my-alb.dns_name
-}
-
 
 # 6a-route53.tf ----------------------------------------------------------
 output this-new-dns-name {
@@ -33,4 +16,19 @@ output this-new-dns-name {
 }
 
 
+# 12a-ecs.tf -------------------------------------------------------------
+output my-docker-port {
+  description          = "Exposed docker port"
+  value                = var.my-docker-port
+}
 
+# 09c-template-file ----------------------------------------------------------
+# output my-docker-image {
+#   description          = "Name of the docker image"
+#   value                = var.my-docker-image
+# }
+
+output my-ecs-cd-template{
+  description          = "Name of the container definition"
+  value                = var.my-ecs-cd-template 
+}
