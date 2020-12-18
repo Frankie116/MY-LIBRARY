@@ -23,3 +23,6 @@ created docker-cmds.md
 Changelog-007
 split 12-ecs.tf into 12a-ecs-service.tf & 12b-ecs-td.tf
 updated 09c, 11a & docker-cmds.md
+
+Changelog-008
+added 14a & 14b docker tf files
