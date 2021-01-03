@@ -26,3 +26,6 @@ updated 09c, 11a & docker-cmds.md
 
 Changelog-008
 added 14a & 14b docker tf files
+
+Changelog-009
+Added diagrams folder
