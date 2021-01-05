@@ -94,6 +94,9 @@ git merge <branch>
 ## Create a new connection to a remote repo. After adding a remote, you can use <name> as a shortcut for <url> in other commands.
 git remote add <name> <url>
 
+i.e
+git remote add origin https://github.com/Frankie116/APP01-mongodb.git
+
 ## Fetches a specific <branch>, from the repo. Leave off <branch> to fetch all remote refs.
 git fetch <remote> <branch>
 
@@ -240,3 +243,25 @@ git push <remote> --all
 ## ags aren’t automatically pushed when you push a branch or use the --all flag.The--tagsflagsendsallofyourlocaltagstotheremoterepo.
 git push <remote> --tags
 
+
+# ----------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------
+# create a new repository on the command line
+# ----------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------
+echo "# APP01-mongodb" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Frankie116/APP01-mongodb.git
+git push -u origin main
+
+# ----------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------
+# …or push an existing repository from the command line
+# ----------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------
+git remote add origin https://github.com/Frankie116/APP01-mongodb.git
+git branch -M main
+git push -u origin main
