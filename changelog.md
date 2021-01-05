@@ -29,3 +29,6 @@ added 14a & 14b docker tf files
 
 Changelog-009
 Added diagrams folder
+
+Changelog-010
+updated output.tf
