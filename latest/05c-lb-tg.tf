@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------------------------------
-# version  1.5
+# version  1.6
 # Library: https://github.com/Frankie116/my-library.git
 # Creates target groups & attachments for load balancing
 # ---------------------------------------------------------------------------------------------------
@@ -37,11 +37,3 @@ resource "aws_lb_target_group" "my-lb-tg" {
     Environment         = var.my-environment
   }
 }
-
-
-# resource "aws_lb_target_group_attachment" "my-lb-attachment" {
-#   count                 = local.instance-count
-#   target_group_arn      = aws_lb_target_group.my-lb-tg.arn
-#   target_id             = aws_instance.my-server[count.index].id
-# # port                  = 80
-# }

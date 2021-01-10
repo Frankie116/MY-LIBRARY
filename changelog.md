@@ -35,3 +35,23 @@ updated output.tf
 
 Changelog-011
 updated aws, docker, git, nodejs & terraform cmds
+
+Changelog-012
+Changes not staged for commit:
+        deleted:    latest/01a-vpc.tf
+        modified:   latest/05b-lb-listeners.tf
+        modified:   latest/05c-lb-tg.tf
+        modified:   latest/06a-route53.tf
+        modified:   latest/09c-template-file.tf
+        modified:   latest/10a-cw-logs.tf
+        modified:   latest/11a-auto_scaling.tf
+        deleted:    latest/12a-ecs-service.tf
+        deleted:    latest/12b-ecs-td.tf
+        modified:   latest/outputs.tf
+        modified:   latest/variables.tf
+
+Untracked files:
+        latest/01a-vpc copy.tf
+        latest/03a-ecs-service.tf
+        latest/03b-ecs-td.tf
+        latest/provider.tf

@@ -19,15 +19,3 @@ resource "aws_lb_listener" "my-lb-listener-http" {
     target_group_arn      = aws_lb_target_group.my-lb-tg.arn
   }
 }
-
-
-# resource "aws_lb_listener" "my-lb-listener-8080" {
-#   load_balancer_arn     = aws_lb.my-alb.arn
-#   port                  = 8080
-#   protocol              = "HTTP"
-
-#   default_action {
-#     type                = "forward"
-#     target_group_arn    = aws_lb_target_group.my-lb-target-group.arn
-#   }
-# }

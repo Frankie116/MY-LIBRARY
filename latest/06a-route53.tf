@@ -13,7 +13,7 @@ data "aws_route53_zone" "my-r53zone" {
 
 resource "aws_route53_record" "my-r53-record" {
   zone_id                    = data.aws_route53_zone.my-r53zone.zone_id
-  name                       = "${var.my-servername}.${data.aws_route53_zone.my-r53zone.name}"
+  name                       = "${var.my-application}.${data.aws_route53_zone.my-r53zone.name}"
   type                       = "A"
 
   alias {
@@ -29,37 +29,16 @@ resource "aws_route53_record" "my-r53-record" {
 
 
 
-# variables.tf ---------------------------------------------------------------------------------------
-# 06a-route53.tf -------------------------------------------------------------------------------------
-variable "my-existing-r53-zone" {
-    default             = "redacted.com"    # this variable should point to an exiting r53 hosted zone
-}
-
-variable "my-lb-hosted-zone" {
-    default             = "ZHREDACTEDK8"
-}
-
-
-# output.tf ------------------------------------------------------------------------------------------
-# 6a-route53.tf --------------------------------------------------------------------------------------
-output this-new-dns-name {
-  description          = "New Public DNS name of loadbalancer's route53 A record"
-  value                = aws_route53_record.my-r53-record.fqdn
-}
-
 
 # ----------------------------------------------------------------------------------------------------
 # use config below to point to an eip ----------------------------------------------------------------
 # resource "aws_route53_record" "my-r53-record" {
 #   zone_id                  = data.aws_route53_zone.my-r53zone.zone_id
-#   name                     = "${var.my-servername}.${data.aws_route53_zone.my-r53zone.name}"
+#   name                     = "${var.my-application}.${data.aws_route53_zone.my-r53zone.name}"
 #   type                     = "A"
 #   ttl                      = "300"
 #   records                  = [data.aws_eip.my-eip.public_ip]
 # }
 
-#  variable "my-servername" {
-#     default             = "my-server"
-# }
 
 

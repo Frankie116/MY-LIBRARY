@@ -1,10 +1,11 @@
 # ---------------------------------------------------------------------------------------------------
-# version  1.5
+# version  1.6
 # Library: https://github.com/Frankie116/my-library.git
 # Creates auto-scaling policies 
 # ---------------------------------------------------------------------------------------------------
 
 # req:
+# 9b-random-string.tf  - random_string.my-random-string.result
 # 12a-ecs.tf           - aws_ecs_cluster.my-ecs-cluster.name
 # 12a-ecs.tf           - aws_ecs_service.my-ecs-service.name
 
@@ -20,7 +21,7 @@ resource "aws_appautoscaling_target" "my-as-target" {
 
 # Automatically scale capacity up by one
 resource "aws_appautoscaling_policy" "my-as-policy-up" {
-  name                            = "myapp-scale-up"
+  name                            = "myapp-scale-up-${random_string.my-random-string.result}"
   service_namespace               = "ecs"
   resource_id                     = "service/${aws_ecs_cluster.my-ecs-cluster.name}/${aws_ecs_service.my-ecs-service.name}"
   scalable_dimension              = "ecs:service:DesiredCount"
@@ -39,7 +40,7 @@ resource "aws_appautoscaling_policy" "my-as-policy-up" {
 
 # Automatically scale capacity down by one
 resource "aws_appautoscaling_policy" "my-as-policy-down" {
-  name                            = "myapp-scale-down"
+  name                            = "myapp-scale-down-${random_string.my-random-string.result}"
   service_namespace               = "ecs"
   resource_id                     = "service/${aws_ecs_cluster.my-ecs-cluster.name}/${aws_ecs_service.my-ecs-service.name}"
   scalable_dimension              = "ecs:service:DesiredCount"

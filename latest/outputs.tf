@@ -15,9 +15,9 @@ output my-website-address {
 
 
 # 09c-template-file ----------------------------------------------------------
-output my-ecs-cd-template{
+output my-ecs-cd-file {
   description          = "Name of the container definition"
-  value                = var.my-ecs-cd-template 
+  value                = var.my-ecs-cd-file 
 }
 
 
