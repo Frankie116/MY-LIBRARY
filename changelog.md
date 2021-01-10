@@ -32,3 +32,6 @@ Added diagrams folder
 
 Changelog-010
 updated output.tf
+
+Changelog-011
+updated aws, docker, git, nodejs & terraform cmds
