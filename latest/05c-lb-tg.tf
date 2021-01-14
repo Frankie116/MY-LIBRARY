@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------------------------------
-# version  1.6
+# version  1.7
 # Library: https://github.com/Frankie116/my-library.git
 # Creates target groups & attachments for load balancing
 # ---------------------------------------------------------------------------------------------------
@@ -16,7 +16,7 @@
 
 
 resource "aws_lb_target_group" "my-lb-tg" {
-  name                  = "my-lb-tg"
+  name                  = "my-lb-tg-${random_string.my-random-string.result}"
   vpc_id                = module.my-vpc.vpc_id
   protocol              = "HTTP"
   port                  = var.my-docker-port

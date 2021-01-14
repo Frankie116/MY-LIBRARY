@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------------------------------
-# version  1.4
+# version  1.7
 # Library: https://github.com/Frankie116/my-library.git
 # Creates security groups
 # ---------------------------------------------------------------------------------------------------
@@ -12,18 +12,6 @@
 # variables.tf        - var.my-project-name
 # variables.tf        - var.my-environment
 
-
-resource "aws_security_group" "my-lb-sg" {
-  name                    = "my-lb-sg-${random_string.my-random-string.result}"
-  description             = "controls access to/from the alb"
-  vpc_id                  = module.my-vpc.vpc_id
-  tags                    = {
-      Name                = "my-lb-sg-${random_string.my-random-string.result}"
-      Terraform           = "true"
-      Project             = var.my-project-name
-      Environment         = var.my-environment
-  }
-}
 
 
 resource "aws_security_group" "my-ecs-sg" {
