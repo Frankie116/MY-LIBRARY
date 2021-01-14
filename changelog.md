@@ -37,7 +37,6 @@ Changelog-011
 updated aws, docker, git, nodejs & terraform cmds
 
 Changelog-012
-Changes not staged for commit:
         deleted:    latest/01a-vpc.tf
         modified:   latest/05b-lb-listeners.tf
         modified:   latest/05c-lb-tg.tf
@@ -50,8 +49,30 @@ Changes not staged for commit:
         modified:   latest/outputs.tf
         modified:   latest/variables.tf
 
-Untracked files:
+        Untracked files:
         latest/01a-vpc copy.tf
         latest/03a-ecs-service.tf
         latest/03b-ecs-td.tf
         latest/provider.tf
+
+
+Changelog-013
+        deleted:    latest/04a-sg.tf
+        deleted:    latest/04b-sg.tf
+        deleted:    latest/04c-sg-rules.tf
+        deleted:    latest/10b-cw-alarms..tf
+        modified:   diagrams/NETWORK DIAGRAM-APP02.jpg
+        modified:   latest/05a-lb-alb.tf
+        modified:   latest/05c-lb-tg.tf
+        modified:   latest/07a-s3-bucket.tf
+
+
+        Untracked files:
+        diagrams/NETWORK DIAGRAM-TF06-v0.4.jpg
+        latest/04a-sg-server.tf
+        latest/04b-sg-rules-server.tf
+        latest/04c-sg-lb.tf
+        latest/04d-sg-rules-lb.tf
+        latest/04e-sg-ecs.tf
+        latest/04f-sg-rules-ecs.tf
+        latest/10b-cw-alarms.tf

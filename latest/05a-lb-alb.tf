@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------------------------------
-# version  1.4
+# version  1.7
 # Library: https://github.com/Frankie116/my-library.git
 # Creates an application load balancer
 # ---------------------------------------------------------------------------------------------------
@@ -14,7 +14,7 @@
 
 
 resource "aws_lb" "my-alb" {
-  name                   = "my-alb"
+  name                   = "my-alb-${random_string.my-random-string.result}"
   load_balancer_type     = "application"
   security_groups        = [aws_security_group.my-lb-sg.id]
   subnets                = module.my-vpc.public_subnets
