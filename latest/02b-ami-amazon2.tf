@@ -28,5 +28,8 @@ data "aws_ami" "my-ami-amazon2" {
 
 
 
+# use in ec2 resource:
+# ami                    = data.aws_ami.my-ami-amazon2.id
+
 
 

@@ -76,3 +76,21 @@ Changelog-013
         latest/04e-sg-ecs.tf
         latest/04f-sg-rules-ecs.tf
         latest/10b-cw-alarms.tf
+
+Changelog-014
+        modified:   changelog.md
+        deleted:    cmds/aws.md
+        deleted:    latest/02a-ec2-choose-ami.tf
+        modified:   latest/02b-ami-amazon2.tf
+        modified:   latest/04a-sg-server.tf
+        modified:   latest/04b-sg-rules-server.tf
+        deleted:    latest/04d-sg-rules-lb.tf
+        deleted:    latest/06a-route53.tf
+        modified:   latest/outputs.tf
+
+        Untracked files:
+        cmds/aws/
+        latest/02a-ec2.tf
+        latest/02d-ec2-choose-ami.tf
+        latest/06a-route53-lb.tf
+        latest/06b-route53.tf

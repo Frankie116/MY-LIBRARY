@@ -12,6 +12,10 @@ output my-website-address {
   value                = "${aws_route53_record.my-r53-record.fqdn}:${var.my-docker-port}"
 }
 
+# output my-website-address2 {
+#   description          = "Full website addresss including port number"
+#   value                = [aws_route53_record.my-r53-record.*.fqdn]
+# }
 
 
 # 09c-template-file ----------------------------------------------------------
