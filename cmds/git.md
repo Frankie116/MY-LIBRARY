@@ -33,9 +33,6 @@ git add readme.md
 
 
 
-
-
-
 ## Commit the staged snapshot, but instead of launching a text editor, use <message> as the commit message.
 git commit -m "<message>"
 
@@ -43,6 +40,8 @@ git commit -m "<message>"
 git status
 
 
+
+## ---------------------------------------------------------------------------------------------------
 ## Display the entire commit history using the default format. For customization see additional options.
 git log
 
@@ -242,6 +241,16 @@ git push <remote> --all
 
 ## ags aren’t automatically pushed when you push a branch or use the --all flag.The--tagsflagsendsallofyourlocaltagstotheremoterepo.
 git push <remote> --tags
+
+
+# ----------------------------------------------------------------------------------------------
+## push a branch in repo to a new repo.  push to a new branch called master...
+# https://stackoverflow.com/questions/2227062/how-do-i-move-a-git-branch-out-into-its-own-repository
+
+git push https://github.com/Frankie116/APP05-wordpress-lb.git f06-jumpbox:master
+
+# ----------------------------------------------------------------------------------------------
+
 
 
 # ----------------------------------------------------------------------------------------------
