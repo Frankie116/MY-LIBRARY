@@ -51,6 +51,14 @@ $ ssh ec2-user@<private-instance-ip>
 
 # ----------------------------------------------------------------
 
+Issue:
+WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
+
+Solution:
+ssh-keygen -R <IP or HOST-ID>
+
+
+# ----------------------------------------------------------------
 EC2 - DISPLAY OS DETAILS:
 
 cat /etc/os-release
