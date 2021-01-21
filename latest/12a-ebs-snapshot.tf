@@ -1,11 +1,12 @@
 # ---------------------------------------------------------------------------------------------------
-# version  1.4
+# version  1.10
 # Library: https://github.com/Frankie116/my-library.git
 # Uses an existing snapshot named "my-snapshot-latest"
 # ---------------------------------------------------------------------------------------------------
 
 # req:
 # An existing snapshot named "my-snapshot-latest" needs to be found in local region.
+# variables.tf        - var.my-snapshot-name
 
 
 data "aws_ebs_snapshot" "my-existing-snapshot" {
@@ -13,6 +14,6 @@ data "aws_ebs_snapshot" "my-existing-snapshot" {
   owners                = ["self"]
   filter {
     name                = "tag:Name"
-    values              = ["my-snapshot-latest"]
+    values              = [var.my-snapshot-name]
   }
 }
