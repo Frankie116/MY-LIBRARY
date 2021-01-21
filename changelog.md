@@ -94,3 +94,60 @@ Changelog-014
         latest/02d-ec2-choose-ami.tf
         latest/06a-route53-lb.tf
         latest/06b-route53.tf
+
+Changelog-015
+        modified:   changelog.md
+        deleted:    docs/Elastic Load Balancing endpoints and quotas - AWS General Reference.htm
+        modified:   latest/01a-vpc.tf
+        deleted:    latest/02a-ec2.tf
+        deleted:    latest/02b-ami-amazon2.tf
+        deleted:    latest/02c-ami-snapshot.tf
+        deleted:    latest/02d-ec2-choose-ami.tf
+        modified:   latest/03a-ecs-service.tf
+        modified:   latest/03b-ecs-td.tf
+        modified:   latest/04a-sg-server.tf
+        modified:   latest/04b-sg-rules-server.tf
+        modified:   latest/04c-sg-lb.tf
+        modified:   latest/04e-sg-ecs.tf
+        modified:   latest/04f-sg-rules-ecs.tf
+        modified:   latest/05a-lb-alb.tf
+        modified:   latest/05b-lb-listeners.tf
+        modified:   latest/05c-lb-tg.tf
+        deleted:    latest/06a-route53-lb.tf
+        deleted:    latest/06b-route53.tf
+        modified:   latest/07a-s3-bucket.tf
+        modified:   latest/08a-iam-roles.tf
+        deleted:    latest/09a-snapshot.tf
+        modified:   latest/09b-random-string.tf
+        modified:   latest/09c-template-file.tf
+        modified:   latest/10a-cw-logs.tf
+        modified:   latest/10b-cw-alarms.tf
+        modified:   latest/11a-auto_scaling.tf
+        modified:   latest/14a-docker-container.tf
+        modified:   latest/14b-docker-image.tf
+        modified:   latest/main.tf
+        modified:   latest/outputs.tf
+        modified:   latest/provider.tf
+        modified:   latest/variables.tf
+
+Untracked files:
+        cmds/aws/cli.md
+        cmds/linux.md
+        cmds/vim.md
+        cmds/wordpress.md
+        docs/known-issues.md
+        latest/02a-ec2-snapshot.tf
+        latest/02b-ec2-jumpbox.tf
+        latest/02d-ami-amazon2.tf
+        latest/02e-ami-snapshot.tf
+        latest/02f-ec2-choose-ami.tf
+        latest/02g-keypair.tf
+        latest/04d-sg-rules-lb.tf
+        latest/04g-sg-jumpbox.tf
+        latest/04h-sg-rules-jumpbox.tf
+        latest/06a-route53-zone.tf
+        latest/06b-route53-record-lb.tf
+        latest/06c-route53-record-server.tf
+        latest/06d-route53-record-jumpbox.tf
+        latest/12a-ebs-snapshot.tf
+        latest/changelog.md

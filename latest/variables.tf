@@ -1,18 +1,19 @@
 # ---------------------------------------------------------------------------------------------------
-# version  1.6
+# version  1.10
 # Library: https://github.com/Frankie116/my-library.git
 # variables used in this project
 # ---------------------------------------------------------------------------------------------------
 
+# req:
+# None
 
-# main.tf -------------------------------------------------------------
+
+# various ----------------------------------------------------------------
 variable "my-aws-region" {
   description           = "The AWS region things are created in"
   default               = "eu-west-2"
 }
 
-
-# various ----------------------------------------------------------------
 variable my-project-name {
   description           = "Name of the project. Used in resource names and tags."
   type                  = string
@@ -92,7 +93,30 @@ variable my-pub-subnet-cidr-blocks {
 }
 
 
-# 04c-sg-rules -------------------------------------------------------------
+# 03a-ecs-service --------------------------------------------------------------
+variable "my-desired-container-count" {
+  description           = "Number of docker containers to run"
+  default               = 1
+}
+
+variable "my-application" {
+    default             = "my-app"
+} 
+
+
+# 03b-ecs-td -------------------------------------------------------------------
+variable "my-desired-fargate-cpu" {
+  description           = "Fargate instance CPU units to provision (1 vCPU = 1024 CPU units)"
+  default               = "256"
+}
+
+variable "my-desired-fargate-memory" {
+  description           = "Fargate instance memory to provision (in MiB)"
+  default               = "512"
+}
+
+
+# 04e-sg-rules-ecs -------------------------------------------------------------
 variable "my-docker-port" {
   description           = "Port exposed by the docker image to redirect traffic to"
   default               = 80
@@ -109,17 +133,15 @@ variable "my-hc-interval" {
 }
 
 
-# 06a-route53.tf -----------------------------------------------------------
+# 06a-route53-zone.tf -----------------------------------------------------------
 variable "my-existing-r53-zone" {
     default             = "redacted.com"    # this variable should point to an exiting r53 hosted zone
 }
 
+
+# 06b-route53-record-lb.tf -------------------------------------------------------------
 variable "my-lb-hosted-zone" {
     default             = "ZHREDACTEDK8"
-} 
-
-variable "my-application" {
-    default             = "my-app"
 } 
 
 
@@ -129,37 +151,14 @@ variable "my-ecs-task-execution-role-name" {
   default               = "myEcsTaskExecutionRole"
 }
 
+
 # 09c-template-file ------------------------------------------------------------
 variable "my-docker-image" {
   description           = "name of docker image"
   default               = "nginx"
 }
 
-# 12a-ecs -------------------------------------------------------------------
-variable "my-desired-fargate-cpu" {
-  description           = "Fargate instance CPU units to provision (1 vCPU = 1024 CPU units)"
-  default               = "256"
-}
-
-variable "my-desired-fargate-memory" {
-  description           = "Fargate instance memory to provision (in MiB)"
-  default               = "512"
-}
-
-
-# 09c-template-file ----------------------------------------------------------
 variable "my-ecs-cd-file" {
   description           = "ecs container definition file"
   default               = "my-ecs-cd-template.json.tpl"
 }
-
-
-# 12a-ecs --------------------------------------------------------------------
-variable "my-desired-container-count" {
-  description           = "Number of docker containers to run"
-  default               = 1
-}
-
-
-
-

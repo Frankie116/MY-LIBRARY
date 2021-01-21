@@ -11,14 +11,15 @@
 # variables.tf        - var.my-environment
 
 
-resource "aws_security_group" "my-sg-server" {
-  name                   = "my-sg-server-${random_string.my-random-string.result}"
-  description            = "Security group for web-servers with HTTP ports open within VPC"
-  vpc_id                 = module.my-vpc.vpc_id
-  tags                   = {
-    Name                 = "my-sg-server-${random_string.my-random-string.result}"
-    Terraform            = "true"
-    Project              = var.my-project-name
-    Environment          = var.my-environment
+
+resource "aws_security_group" "my-sg-jumpbox" {
+  name                  = "my-sg-jumpbox-${random_string.my-random-string.result}"
+  description           = "Security group for jumpboxes with ssh ports open"
+  vpc_id                = module.my-vpc.vpc_id
+  tags                  = {
+    Name                = "my-sg-jumpbox-${random_string.my-random-string.result}"
+    Terraform           = "true"
+    Project             = var.my-project-name
+    Environment         = var.my-environment
   }
 }

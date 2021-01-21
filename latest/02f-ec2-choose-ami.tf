@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------------------------------
-# version  1.4
+# version  1.10
 # Library: https://github.com/Frankie116/my-library.git
 # Creates a new ec2 instance
 # ---------------------------------------------------------------------------------------------------
@@ -27,7 +27,6 @@ locals {
   instance-count         = var.my-instances-per-subnet * length(module.my-vpc.private_subnets)
 }
 
-
 resource "aws_instance" "my-server" {
   count                  = local.instance-count
   ami                    = lookup(local.ami-mapping, var.use-snapshot, "This option should never get chosen")
@@ -35,7 +34,7 @@ resource "aws_instance" "my-server" {
   subnet_id              = module.my-vpc.private_subnets[count.index % length(module.my-vpc.private_subnets)]
   vpc_security_group_ids = [module.my-server-sg.this_security_group_id]
   user_data              = data.template_file.my-user-data.rendered
-  tags = {
+  tags                   = {
     Name                 = "${var.my-servername}-0${count.index+1}" 
     Project              = var.my-project-name
     Environment          = var.my-environment

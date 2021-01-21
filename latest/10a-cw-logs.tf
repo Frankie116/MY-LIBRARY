@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------------------------------
-# version  1.4
+# version  1.10
 # Library: https://github.com/Frankie116/my-library.git
 # Creates cloudwatch logs
 # ---------------------------------------------------------------------------------------------------
@@ -20,7 +20,6 @@ resource "aws_cloudwatch_log_group" "my-cw-log-group" {
     Name             = "my-cw-log-group"
   }
 }
-
 
 resource "aws_cloudwatch_log_stream" "my-cw-log-stream" {
   name               = "my-log-stream-${random_string.my-random-string.result}"
