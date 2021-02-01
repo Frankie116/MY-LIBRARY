@@ -173,3 +173,25 @@ Changelog-016
         latest/09d-template-file.tf
         latest/15a-backend-s3.tf
         latest/16a-dynamodb-table.tf
+
+
+Changelog-017
+      modified:   changelog.md
+        modified:   cmds/aws/s3.md
+        modified:   cmds/git.md
+        modified:   cmds/linux.md
+        modified:   cmds/terraform.md
+        modified:   cmds/wordpress.md
+        modified:   latest/07a-s3-bucket.tf
+        modified:   latest/07b-s3-bucket-policy.tf
+        modified:   latest/07c-s3-bucket-&-policy.tf
+        modified:   latest/08b-iam-policy-doc.tf
+        modified:   latest/09c-random-pet.tf
+        modified:   latest/09d-template-file.tf
+        modified:   latest/16a-dynamodb-table.tf
+        deleted:    latest/changelog.md
+        modified:   latest/outputs.tf
+        modified:   latest/variables.tf
+
+        Untracked files:
+        cmds/jenkins.md
