@@ -162,3 +162,29 @@ variable "my-ecs-cd-file" {
   description           = "ecs container definition file"
   default               = "my-ecs-cd-template.json.tpl"
 }
+
+
+# 16a-dynamodb-table.tf -------------------------------------------------------
+variable "my-db-tablename" {
+  type    = string
+  default = "my-statelock"
+}
+
+variable "my-db-read-capacity" {
+  type    = number
+  default = 1
+}
+
+variable "my-db-write-capacity" {
+  type    = number
+  default = 1
+}
+
+ variable "my-db-hash-key" {
+   type    = string
+    default = "LockID"
+  }
+  variable "my-db-range-key" {
+    type    = string
+    default = "Digest"
+  }
