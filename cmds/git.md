@@ -3,6 +3,7 @@
 ## version  1.5
 ## Library: https://github.com/Frankie116/my-library.git
 ## 
+##  Detailed list of git commands can be found here - https://git-scm.com/docs
 ## ---------------------------------------------------------------------------------------------------
 
 ## --------------------------------------------
