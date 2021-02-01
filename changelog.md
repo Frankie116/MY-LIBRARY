@@ -66,7 +66,6 @@ Changelog-013
         modified:   latest/05c-lb-tg.tf
         modified:   latest/07a-s3-bucket.tf
 
-
         Untracked files:
         diagrams/NETWORK DIAGRAM-TF06-v0.4.jpg
         latest/04a-sg-server.tf
@@ -76,6 +75,7 @@ Changelog-013
         latest/04e-sg-ecs.tf
         latest/04f-sg-rules-ecs.tf
         latest/10b-cw-alarms.tf
+
 
 Changelog-014
         modified:   changelog.md
@@ -94,6 +94,7 @@ Changelog-014
         latest/02d-ec2-choose-ami.tf
         latest/06a-route53-lb.tf
         latest/06b-route53.tf
+
 
 Changelog-015
         modified:   changelog.md
@@ -130,7 +131,7 @@ Changelog-015
         modified:   latest/provider.tf
         modified:   latest/variables.tf
 
-Untracked files:
+        Untracked files:
         cmds/aws/cli.md
         cmds/linux.md
         cmds/vim.md
@@ -151,3 +152,24 @@ Untracked files:
         latest/06d-route53-record-jumpbox.tf
         latest/12a-ebs-snapshot.tf
         latest/changelog.md
+
+
+Changelog-016
+        modified:   changelog.md
+        modified:   cmds/aws/cli.md
+        modified:   cmds/terraform.md
+        modified:   cmds/wordpress.md
+        modified:   latest/07a-s3-bucket.tf
+        deleted:    latest/09c-template-file.tf
+        modified:   latest/variables.tf
+        modified:   modules/ec2/outputs.tf
+
+        Untracked files:
+        cmds/aws/s3.md
+        latest/07b-s3-bucket-policy.tf
+        latest/07c-s3-bucket-&-policy.tf
+        latest/08b-iam-policy-doc.tf
+        latest/09c-random-pet.tf
+        latest/09d-template-file.tf
+        latest/15a-backend-s3.tf
+        latest/16a-dynamodb-table.tf

@@ -1,10 +1,10 @@
 
 
 
-# output "this_public_ip" {
-#   description = "The public ip of myec2 instance"
-#   value       = aws_instance.myec2.public_ip
-# }
+output "this_public_ip" {
+  description = "The public ip of myec2 instance"
+  value       = aws_instance.myec2.public_ip
+}
 
 
 # output "this_private_ip" {
@@ -24,7 +24,7 @@ output "this_id" {
 # }
 
 
-# output "this_availability_zone" {
-#   description = "The AZ name of myec2 instance"
-#   value       = aws_instance.myec2.availability_zone
-# }
+output "this_availability_zone" {
+  description = "The AZ name of myec2 instance"
+  value       = aws_instance.myec2.availability_zone
+}
