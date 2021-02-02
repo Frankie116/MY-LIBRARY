@@ -195,3 +195,19 @@ Changelog-017
 
         Untracked files:
         cmds/jenkins.md
+
+
+Changelog-018
+        modified:   changelog.md
+        modified:   cmds/linux.md
+        modified:   cmds/terraform.md
+        deleted:    latest/07b-s3-bucket-policy.tf
+        deleted:    latest/07c-s3-bucket-&-policy.tf
+        deleted:    latest/15a-backend-s3.tf
+
+        Untracked files:        
+        latest/00a-backend-s3.tf
+        latest/07b-s3-bucket-&-policy.tf
+        latest/07c-s3-bp-iampd.tf
+        latest/07e-s3-bp-json-public.tf
+        latest/07f-s3-bp-json-encrypt.tf
