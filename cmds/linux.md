@@ -100,4 +100,37 @@ EBS VOLUMES
 /dev/xvdh           # device_name
 
 ## ----------------------------------------------------------------
+source: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-using-volumes.html
+
+lsblk                           ## display all the attached drives
+
+sudo file -s /dev/xvdb          ## display info such as file system type. (if type is shown as data
+                                ## then there is no file system on the device and one must be created.)
+
+sudo mkfs -t ext4 /dev/xvdb     ## format the volume & delete the existing data
+
+sudo mkdir /data                ## create a data folder
+
+sudo mount /dev/xvdb /data      ## mount the device (/dev/xvdb) onto the data folder.
+
+lsblk                           ## should now display the xvdb device has been mounted onto the /data folder.
+
+sudo cp /etc/fstab /etc/fstab.orig ## Automatically mount the folder on each satem reboot.
+
+sudo nano /etc/fstab            ## add the following in nano (see link above)
+
+/dev/xvdb   /data   ext4 defaults,nofail 0 2 
+
+cat /etc/fstab                  ## verify file is syntactically ok
+
+sudo file -s /dev/xvdb          ## verify that filesystem has been formatted.
+
+lsblk
+
+sudo umount /datasudo mount -a  ## test fstab file will mount /data
+
+lsblk
+
+
+
 
