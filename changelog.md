@@ -211,3 +211,12 @@ Changelog-018
         latest/07c-s3-bp-iampd.tf
         latest/07e-s3-bp-json-public.tf
         latest/07f-s3-bp-json-encrypt.tf
+
+
+Changelog-019
+        modified:   changelog.md
+        modified:   cmds/linux.md
+
+        Untracked files:
+        installs/
+        scripts/my-ec2-userdata-apache

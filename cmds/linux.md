@@ -130,6 +130,11 @@ lsblk
 sudo umount /datasudo mount -a  ## test fstab file will mount /data
 
 lsblk
+## ----------------------------------------------------------------
+
+dig my.domain.com           ## same as nslookup (windows)
+
+ifconfig                    ## same as ipconfig (windows)
 
 
 
