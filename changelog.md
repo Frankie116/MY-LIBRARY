@@ -226,3 +226,5 @@ Changelog-020
         modified:   changelog.md
         modified:   cmds/terraform.md
 
+Changelog-021
+        Changed file format on all docs in cmds dir
