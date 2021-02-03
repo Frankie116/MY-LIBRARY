@@ -220,3 +220,9 @@ Changelog-019
         Untracked files:
         installs/
         scripts/my-ec2-userdata-apache
+
+
+Changelog-020
+        modified:   changelog.md
+        modified:   cmds/terraform.md
+
