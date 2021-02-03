@@ -20,7 +20,7 @@ terraform show -json tfplan     ## display that planfile in plain text
 
 terraform plan -target module.my_ec2.aws_instance.myec2                 ## display the plan for the targetted resource
 terraform plan -target module.my_ec2.aws_instance.myec2 -out run.plan   ## display the plan for the targetted resource & output result to a file
-terraform apply "run.plan"                                              ## apply only the changes in the plan file.  Applies plan immediately after executioin.  No confirmation required
+terraform apply "run.plan"                                              ## apply only the changes in the plan file.  Applies plan immediately after execution.  No confirmation required
 
 ## -------------------------------------------------------------------------------------
 terraform apply
