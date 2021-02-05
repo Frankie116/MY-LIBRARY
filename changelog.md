@@ -228,3 +228,7 @@ Changelog-020
 
 Changelog-021
         Changed file format on all docs in cmds dir
+
+Changelog-022
+        updated terraform cmds
+        Changed file format on some docs from .md to .sh
