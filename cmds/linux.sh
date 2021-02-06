@@ -14,6 +14,11 @@ ssh bitnami@<host> -i <privatekkey>.pem
 EXTRACT PUBLIC KEY OUT OF PRIVATE KEY:
 
 openssl rsa -in mykey.pem -pubout > mykey.pub
+
+or
+
+ssh-keygen -y -f mykey.pem > mykey.pub
+
 cat mykey.pub
 
 ## ----------------------------------------------------------------

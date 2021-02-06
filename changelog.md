@@ -232,3 +232,16 @@ Changelog-021
 Changelog-022
         updated terraform cmds
         Changed file format on some docs from .md to .sh
+
+Changelog-023
+        modified:   cmds/linux.sh
+        deleted:    latest/02b-ec2-jumpbox.tf
+        deleted:    latest/06c-route53-record-server.tf
+        deleted:    latest/06d-route53-record-jumpbox.tf
+
+        Untracked files:
+        latest/02a-ec2-jumpbox.tf
+        latest/02a-ec2-server.tf
+        latest/06b-route53-record-jumpbox.tf
+        latest/06b-route53-record-server.tf
+        latest/06h-serv-discovery-priv.tf
