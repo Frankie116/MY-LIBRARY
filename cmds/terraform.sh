@@ -1,5 +1,10 @@
-Detatiled Terraform cmd ref:    https://www.terraform.io/docs/cli/index.html
-other ref:                      https://www.terraform.io/docs/cli/state/resource-addressing.html
+## ---------------------------------------------------------------------------------------------------
+## version  1.4
+## Library: https://github.com/Frankie116/my-library.git
+## Detatiled Terraform cmd ref: https://www.terraform.io/docs/cli/index.html
+## other ref:  https://www.terraform.io/docs/cli/state/resource-addressing.html
+## ---------------------------------------------------------------------------------------------------
+
 
 
 ## -------------------------------------------------------------------------------------

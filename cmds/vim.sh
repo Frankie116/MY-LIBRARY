@@ -1,3 +1,10 @@
+## ---------------------------------------------------------------------------------------------------
+## version  1.4
+## Library: https://github.com/Frankie116/my-library.git
+## vim cmds: https://www.keycdn.com/blog/vim-commands
+## ---------------------------------------------------------------------------------------------------
+
+
 <esc>           # enters normal mode
 <arrow-keys>    # left, right,up,down in text
 : <colon>       # to enter cmd line mode

@@ -2,7 +2,7 @@
 ## ---------------------------------------------------------------------------------------------------
 ## version  1.4
 ## Library: https://github.com/Frankie116/my-library.git
-## All docker cmds found here: https://docs.docker.com/engine/reference/commandline/docker/
+## Docker cmds can be found here: https://docs.docker.com/engine/reference/commandline/docker/
 ## ---------------------------------------------------------------------------------------------------
 
 ## --------------------------------------------

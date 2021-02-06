@@ -1,3 +1,12 @@
+## ---------------------------------------------------------------------------------------------------
+## version  1.4
+## Library: https://github.com/Frankie116/my-library.git
+## Linux cmds can be found here: https://www.howtogeek.com/412055/37-important-linux-commands-you-should-know/
+## ---------------------------------------------------------------------------------------------------
+
+
+
+
 Important list of linux commands can be found here - https://www.howtogeek.com/412055/37-important-linux-commands-you-should-know/
 ## ----------------------------------------------------------------
 
