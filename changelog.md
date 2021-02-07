@@ -245,3 +245,8 @@ Changelog-023
         latest/06b-route53-record-jumpbox.tf
         latest/06b-route53-record-server.tf
         latest/06h-serv-discovery-priv.tf
+
+Changelog-024
+        modified:   changelog.md
+        modified:   cmds/ansible.sh
+        modified:   installs/sw-installs.sh
