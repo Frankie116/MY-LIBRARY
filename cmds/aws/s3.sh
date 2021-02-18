@@ -11,6 +11,9 @@ Detailed s3 commands can be found here:  https://docs.aws.amazon.com/cli/latest/
 ## create bucket in default region
 aws s3 mb s3://<my-unique-s3-bucket-name>
 
+## create bucket in specific region using a profile called aws-dev-ops
+aws s3 mb s3://aws-devops-course-frank2 --region eu-west-2 --profile aws-devops
+
 
 ## delete bucket in default region.  (will only delete if bucket is empty)
 aws s3 rb s3://<my-unique-s3-bucket-name>
@@ -41,3 +44,6 @@ aws s3 ls <my-file.xxx> s3://<my-s3-bucket>
 
 ## lists s3 bucket files in json format
 aws s3api list-objects --bucket <my-s3-bucket>
+
+## setup versioning on bucket
+aws s3api put-bucket-versioning --bucket aws-devops-course-frank --versioning-configuration Status=Enabled --region eu-west-2 --profile aws-devops
