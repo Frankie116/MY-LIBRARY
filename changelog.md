@@ -250,3 +250,13 @@ Changelog-024
         modified:   changelog.md
         modified:   cmds/ansible.sh
         modified:   installs/sw-installs.sh
+
+Changelog-025
+        modified:   cmds/aws/cli.sh
+        modified:   cmds/aws/s3.sh
+        modified:   scripts/my-ec2-userdata-apache
+        modified:   changelog.md
+
+        Untracked files:
+        cmds/aws/codedeploy.sh
+        cmds/monitoring.sh

@@ -8,6 +8,9 @@ credentials
 cat ~/.aws/config
 cat ~/.aws/credentials
 
+aws configure --profile aws-devops
+
+
 
 aws sts get-caller-identity
 
