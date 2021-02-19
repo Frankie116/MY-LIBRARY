@@ -260,3 +260,6 @@ Changelog-025
         Untracked files:
         cmds/aws/codedeploy.sh
         cmds/monitoring.sh
+
+Changelog-026
+        restructured terraform-code library
