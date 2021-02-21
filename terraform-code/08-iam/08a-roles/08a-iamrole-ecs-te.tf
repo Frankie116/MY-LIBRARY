@@ -5,7 +5,7 @@
 # ---------------------------------------------------------------------------------------------------
 
 # req:
-# 08a-iamrole-ecs-te  - data.aws_iam_policy_document.my-iampd-ecs-task-exec.json
+# 08b-iamrole-ecs-te  - data.aws_iam_policy_document.my-iampd-ecs-task-exec.json
 # variables.tf        - var.my-ecs-task-execution-role-name
 
 

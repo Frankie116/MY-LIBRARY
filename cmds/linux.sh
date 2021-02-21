@@ -149,6 +149,13 @@ lsblk
 dig my.domain.com           ## same as nslookup (windows)
 
 ifconfig                    ## same as ipconfig (windows)
+## ----------------------------------------------------------------
+
+
+## make whole directory structure (4 directories)
+sudo mkdir -p /etc/codedeploy-agent/conf/test
+
+
 
 
 

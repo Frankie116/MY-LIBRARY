@@ -9,9 +9,9 @@
 
 
 # various ----------------------------------------------------------------
-variable "my-aws-region" {
+variable "my-region-name" {
   description           = "The AWS region things are created in"
-  default               = "eu-west-2"
+  default               = "London"
 }
 
 variable my-project-name {
@@ -93,6 +93,36 @@ variable my-pub-subnet-cidr-blocks {
 }
 
 
+# 02a-ec2-server ----------------------------------------------------------------------
+variable "my-ami" {
+    default = "default-ami"
+}
+
+variable "my-ami-name" {
+    default = "amzn2-ami-hvm-*-x86_64-gp2"
+}
+
+variable "my-ami-owners" {
+    default = "amazon"
+}
+
+variable my-instances-per-subnet {
+  description = "Number of EC2 instances in each private subnet"
+  type = number
+  default = 1
+}
+
+variable my-instance-type {
+  description = "Type of EC2 instance to use."
+  type        = string
+  default     = "t2.micro"
+}
+
+variable my-instance-name {
+    default = "my-ansible-slave"
+}
+
+
 # 03a-ecs-service --------------------------------------------------------------
 variable "my-desired-container-count" {
   description           = "Number of docker containers to run"
@@ -116,14 +146,14 @@ variable "my-desired-fargate-memory" {
 }
 
 
-# 04e-sg-rules-ecs -------------------------------------------------------------
-variable "my-docker-port" {
-  description           = "Port exposed by the docker image to redirect traffic to"
+# 04b-sg-rules.tf -------------------------------------------------------------
+variable "my-port-app1" {
+  description           = "Application port exposed"
   default               = 80
 }
 
 
-# 05c-lb-tg ----------------------------------------------------------------
+# 05a-lb-tg ----------------------------------------------------------------
 variable "my-hc-path" {
   default               = "/"
 }
@@ -133,13 +163,13 @@ variable "my-hc-interval" {
 }
 
 
-# 06a-route53-zone.tf -----------------------------------------------------------
+# 06a-dns-zone.tf -----------------------------------------------------------
 variable "my-existing-dns-zone" {
     default             = "redacted.com"    # this variable should point to an exiting r53 hosted zone
 }
 
 
-# 06b-route53-record-lb.tf -------------------------------------------------------------
+# 06b-dns-record.tf -------------------------------------------------------------
 variable "my-lb-hosted-zone" {
     default             = "ZHREDACTEDK8"
 } 
@@ -151,17 +181,6 @@ variable "my-ecs-task-execution-role-name" {
   default               = "myEcsTaskExecutionRole"
 }
 
-
-# 09c-template-file ------------------------------------------------------------
-variable "my-docker-image" {
-  description           = "name of docker image"
-  default               = "nginx"
-}
-
-variable "my-ecs-cd-file" {
-  description           = "ecs container definition file"
-  default               = "my-ecs-cd-template.json.tpl"
-}
 
 
 # 16a-dynamodb-table.tf -------------------------------------------------------
@@ -180,11 +199,34 @@ variable "my-db-write-capacity" {
   default               = 1
 }
 
- variable "my-db-hash-key" {
+variable "my-db-hash-key" {
    type                 = string
     default             = "LockID"
-  }
-  variable "my-db-range-key" {
+}
+variable "my-db-range-key" {
     type                = string
     default             = "Digest"
-  }
+}
+
+
+# 31a-template-file ------------------------------------------------------------
+variable "my-docker-image" {
+  description           = "name of docker image"
+  default               = "nginx"
+}
+
+variable "my-ecs-cd-file" {
+  description           = "ecs container definition file"
+  default               = "my-ecs-cd-template.json.tpl"
+}
+
+
+
+# 32a-keypair.tf ---------------------------------------------------------------------
+variable "my-private-key" {
+    default = "my-priv-keyname"
+}
+
+variable "my-public-key" {
+    default = "ssh-rsa REDACTED-AAAABBBBBBCCCCCC"
+}

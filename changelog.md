@@ -263,3 +263,15 @@ Changelog-025
 
 Changelog-026
         restructured terraform-code library
+
+Changelog-027
+        modified:   changelog.md
+        modified:   cmds/aws/codedeploy.sh
+        modified:   cmds/git.sh
+        modified:   cmds/linux.sh
+        modified:   terraform-code/00-main/variables.tf
+        modified:   terraform-code/02-ec2/02a-instances/02a-ec2-server.tf
+        modified:   terraform-code/08-iam/08a-roles/08a-iamrole-ecs-te.tf
+
+        Untracked files:
+        terraform-code/02-ec2/02b-ami/02b-ami.tf

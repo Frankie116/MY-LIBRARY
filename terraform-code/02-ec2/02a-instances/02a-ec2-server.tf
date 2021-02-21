@@ -23,14 +23,14 @@ locals {
 
 resource "aws_instance" "my-server" {
   count                       = local.instance-count
-  ami                         = var.my-ami
+  ami                         = data.aws_ami.my-ami.id
   instance_type               = var.my-instance-type
   subnet_id                   = module.my-vpc.private_subnets[count.index % length(module.my-vpc.private_subnets)]
   vpc_security_group_ids      = [aws_security_group.my-sg-server.id]
   key_name                    = var.my-private-key
   associate_public_ip_address = false
   tags                        = {
-    Name                      = "${var.my-servername}-0${count.index+1}" 
+    Name                      = "${var.my-instance-name}-0${count.index+1}" 
     Project                   = var.my-project-name
     Environment               = var.my-environment
     Terraform                 = "true"

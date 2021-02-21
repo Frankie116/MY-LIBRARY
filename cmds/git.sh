@@ -91,6 +91,8 @@ git merge <branch>
 #  REMOTE REPOSITORIES
 # ----------------------------------------------------------------------------------------------
 
+git remote -v
+
 ## Create a new connection to a remote repo. After adding a remote, you can use <name> as a shortcut for <url> in other commands.
 git remote add <name> <url>
 
