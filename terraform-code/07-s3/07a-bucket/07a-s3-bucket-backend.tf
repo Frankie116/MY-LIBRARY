@@ -5,7 +5,6 @@
 # ---------------------------------------------------------------------------------------------------
 
 # req:
-# 30a-random-string.tf    - random_string.my-random-string.result
 # variables.tf            - var.my-s3-bucket-name
 # variables.tf            - var.my-project-name
 # variables.tf            - var.my-environment
