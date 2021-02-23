@@ -275,3 +275,26 @@ Changelog-027
 
         Untracked files:
         terraform-code/02-ec2/02b-ami/02b-ami.tf
+
+Changelog-028
+        modified:   terraform-code/07-s3/07a-bucket/07a-s3-bucket-backend.tf
+        deleted:    terraform-code/08-iam/08b-policy-doc/08b-iampd-state-lock.tf
+        deleted:    terraform-code/09-backends/09a-s3/00a-backend-s3.tf
+        modified:   terraform-code/16-dynamodb/16a-dynamodb-table.tf
+        deleted:    terraform-code/99 modules/ec2/ec2.tf
+        deleted:    terraform-code/99 modules/ec2/outputs.tf
+        deleted:    terraform-code/99 modules/ec2/variables.tf
+        deleted:    terraform-code/99 modules/myserver/myserver.tf
+        deleted:    terraform-code/99 modules/myserver/outputs.tf
+        deleted:    terraform-code/99 modules/myserver/variables.tf
+        deleted:    terraform-code/99 modules/s3/_s3.tf
+
+        Untracked files:
+        cmds/aws/codecommit.sh
+        terraform-code/02-ec2/02a-instances/02b-ec2-server.tf
+        terraform-code/07-s3/07b-bucket-policy/07b-public-access-block/
+        terraform-code/08-iam/08b-policy-doc/08b-iampd-statelock-logs.tf
+        terraform-code/08-iam/08b-policy-doc/08b-iampd-statelock.tf
+        terraform-code/09-backends/09a-s3/09a-backend-s3.tf
+        terraform-code/16-dynamodb/16a-dynamodb-statelock.tf
+        terraform-code/modules/
