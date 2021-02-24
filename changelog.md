@@ -299,3 +299,6 @@ Changelog-028
         terraform-code/16-dynamodb/16a-dynamodb-statelock.tf
         terraform-code/modules/
 
+Changelog-029
+        Updated iam role config
+

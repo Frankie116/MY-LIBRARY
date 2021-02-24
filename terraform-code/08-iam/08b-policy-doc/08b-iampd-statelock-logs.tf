@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------------------------------
-# version  1.10
+# version  2.0
 # Library: https://github.com/Frankie116/my-library.git
 # Creates an IAM policy document.   This defines the access granted on specific resources.  
 # ---------------------------------------------------------------------------------------------------
