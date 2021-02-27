@@ -302,3 +302,5 @@ Changelog-028
 Changelog-029
         Updated iam role config
 
+Changelog-030
+        Added Cloudfromation cmds
