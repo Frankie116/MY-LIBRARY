@@ -99,11 +99,22 @@ git remote add <name> <url>
 i.e
 git remote add origin https://github.com/Frankie116/APP01-mongodb.git
 
+
+## Add a url mapping to an existing repo
+git remote set-url --add origin https://github.com/Frankie116/CLOUDFORMATION-templates.git
+
+
+## delete a url mapping to an existing repo
+git remote set-url --delete origin https://github.com/Frankie116/CLOUDFORMATION-modules.git
+
+
 ## Fetches a specific <branch>, from the repo. Leave off <branch> to fetch all remote refs.
 git fetch <remote> <branch>
 
+
 ## Fetch the specified remote’s copy of current branch and immediately merge it into the local copy.
 git pull <remote>
+
 
 ## Push the branch to <remote>, along with necessary commits and objects. Creates named branch in the remote repo if it doesn’t exist.
 git push <remote> <branch>
