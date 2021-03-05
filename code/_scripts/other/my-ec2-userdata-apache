@@ -8,7 +8,6 @@ echo "<h1>Hello World from $(hostname -f) in AZ $EC@_AVAIL_ZONE </h1>" > /var/ww
 
 
 
-
 sudo yum update -y
 sudo yum install -y httpd
 sudo systemctl start httpd.service

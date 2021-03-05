@@ -15,7 +15,6 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: An example CloudFormation template for Fargate.
 
 
-
 Parameters:
   VPC:
     Type: AWS::EC2::VPC::Id

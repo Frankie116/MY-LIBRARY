@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # --------------------------------------------------------------
 # Author: Frank Effrim-Botchey
 # installs Apache, Java, Jenkins & starts all of those services

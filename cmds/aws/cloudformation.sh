@@ -20,6 +20,5 @@ Also to...[?]
 cat /var/log/cloud-init.log
 
 
-
 ## The following log file is created on an ec2 when a cfn-init script is executed at boot time:
 cat /var/log/cfn.init.log

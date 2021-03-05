@@ -308,3 +308,6 @@ Changelog-030
 Changelog-031
         Added XCode project
         Added CloudFormation templates
+
+Changelog-031
+        Added mobile.sh for details on mobile development. (xcode, swift, test flight etc)
