@@ -1,0 +1,125 @@
+---
+# ---------------------------------------------------------------------------------------------------
+# version  1.0
+# Library: https://github.com/Frankie116/my-library.git
+# Creates a VPC with 2 public & 4 private subnets
+# ---------------------------------------------------------------------------------------------------
+
+# req:
+# none
+
+AWSTemplateFormatVersion: 2010-09-09
+Description: This template creates a vpc with 2 public and 4 private subnets.  The code is part of a standard modular infrastructure library.
+
+
+Metadata:
+
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - 
+        Label: 
+          default: "VPC CIDR"
+        Parameters: 
+          - VpcCIDR
+      - 
+        Label: 
+          default: "Subnet CIDR"
+        Parameters:
+          - PublicSubnet1CIDR
+          - PublicSubnet2CIDR
+          - PrivateSubnet1CIDR
+          - PrivateSubnet2CIDR
+          - PrivateSubnet3CIDR
+          - PrivateSubnet4CIDR
+      - 
+        Label: 
+          default: "SSH CIDR"
+        Parameters: 
+          - SSHLocation
+
+
+Resources:
+
+  SSHSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Enable SSH access
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Ref SSHLocation
+      Tags:
+        - Key: Name
+          Value: SSH Security Group
+      VpcId: !Ref VPC
+
+  WebServerSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Enable access on ports 22/80/443 locked to relevant SG
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          SourceSecurityGroupId:
+            Fn::ImportValue: !Sub ${ExportVpcStackName}-ALBSecurityGroup
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          SourceSecurityGroupId: !Ref ALBSecurityGroup
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          SourceSecurityGroupId: !Ref SSHSecurityGroup
+      Tags:
+        - Key: Name
+          Value: WebServer Security Group
+      VpcId: !Ref VPC
+
+  DBSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Open database for access
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '3306'
+          ToPort: '3306'
+          SourceSecurityGroupId: !Ref WebServerSecurityGroup
+      Tags:
+        - Key: Name
+          Value: DataBase Security Group
+      VpcId: !Ref VPC
+
+  PublicSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Enable HTTP/S public access  
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '80'
+          ToPort: '80'
+          CidrIp: '0.0.0.0/0'
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: '0.0.0.0/0'
+      Tags:
+        - Key: Name
+          Value: Public HTTP/S SG
+      VpcId: !Ref VPC
+
+
+Outputs:
+
+  DBSecurityGroup:
+    Description: DataBase Security Group ID
+    Export:
+      Name: !Sub ${AWS::StackName}-DBSecurityGroup
+    Value: !Ref DBSecurityGroup
+
+  PublicSecurityGroup:
+    Description: Public HTTP/S SG
+    Export:
+      Name: !Sub ${AWS::StackName}-PublicSecurityGroup
+    Value: !Ref PublicSecurityGroup

@@ -1,0 +1,107 @@
+---
+# ---------------------------------------------------------------------------------------------------
+# version  1.0
+# Library: https://github.com/Frankie116/my-library.git
+# Creates an Application Load Balancer
+# ---------------------------------------------------------------------------------------------------
+
+# req:
+# 100-vpc
+# 102-alb
+# 106-sg
+
+AWSTemplateFormatVersion: 2010-09-09
+Description: This template creates an ALB.  The code is part of a standard modular infrastructure library.
+
+Metadata:
+
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - 
+        Label: 
+          default: "Export VPC Stack Name"
+        Parameters:
+          - ExportedVpc
+
+Parameters:
+
+  ListenerPort:
+    Type: Number
+    Default: 80
+
+  TargetGroupPort:
+    Type: Number
+    Default: 80
+
+  TargetType:
+    Type: String
+    Default: instance
+
+  HealthCheckPath:
+    Type: String
+    Default: /
+
+  ExportedVpc:
+    Description: The name of the vpc stack that exports values
+    Type: String
+    Default: vpc
+
+  ExportedAlb:
+    Description: The name of the alb stack that exports values
+    Type: String
+    Default: alb
+
+  ExportedAlbSg:
+    Description: The name of the alb-sg stack that exports values
+    Type: String
+    Default: app1-alb-sg
+
+Resources:
+
+  ListenerHTTP:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref TargetGroup
+      LoadBalancerArn: 
+        Fn::ImportValue: !Sub ${ExportedAlb}-ALB
+      Port: 
+        Fn::ImportValue: !Sub ${ExportedAlbSg}-ListenerPort
+      Protocol: HTTP
+
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: MyTargetGroup
+      VpcId:
+        Fn::ImportValue: !Sub ${ExportedVpc}-VPC
+      HealthCheckPath: !Ref HealthCheckPath
+      HealthCheckIntervalSeconds: 10
+      HealthCheckTimeoutSeconds: 5
+      UnhealthyThresholdCount: 5
+      HealthyThresholdCount: 2
+      Matcher:
+        HttpCode: 200,302
+      Port:  !Ref TargetGroupPort
+      Protocol: HTTP
+      TargetType: !Ref TargetType
+      TargetGroupAttributes:
+        - Key: deregistration_delay.timeout_seconds
+          Value: 60 # default is 300
+      
+Outputs:
+
+  ListenerHTTP:
+    Description: Application Load Balancer Security Group ID
+    Export:
+      Name: !Sub ${AWS::StackName}-ListenerHTTP
+    Value: !Ref ListenerHTTP
+
+  TargetGroup:
+    Description: Webserver target group
+    Export:
+      Name: !Sub ${AWS::StackName}-TargetGroup
+    Value: !Ref TargetGroup
+
+

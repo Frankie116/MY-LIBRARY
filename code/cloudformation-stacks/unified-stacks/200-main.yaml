@@ -1,0 +1,129 @@
+---
+# ---------------------------------------------------------------------------------------------------
+# version  1.0
+# Library: https://github.com/Frankie116/my-library.git
+# Creates a VPC with 2 public & 4 private subnets
+# ---------------------------------------------------------------------------------------------------
+
+# req:
+# none
+
+AWSTemplateFormatVersion: 2010-09-09
+Description: This template creates a vpc with 2 public and 4 private subnets.  The code is part of a standard modular infrastructure library.
+
+## ----------------------------------------------------------------------
+Metadata:
+
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - 
+        Label: 
+          default: ""
+        Parameters: 
+          - MainNumberOfPrivateSubnets
+          - MainNumberOfPublicSubnets
+      - 
+        Label: 
+          default: "VPC CIDR"
+        Parameters: 
+          - MainVpcCIDR
+      - 
+        Label: 
+          default: "Subnet CIDR"
+        Parameters:
+          - MainPrivateSubnet1CIDR
+          - MainPrivateSubnet2CIDR
+          - MainPrivateSubnet3CIDR
+          - MainPublicSubnet1CIDR
+          - MainPublicSubnet2CIDR
+          - MainPublicSubnet3CIDR
+      - 
+        Label: 
+          default: "SSH CIDR"
+        Parameters: 
+          - MainSSHLocation
+
+## ----------------------------------------------------------------------
+Parameters:
+
+  MainNumberOfPrivateSubnets:
+    Description: Please enter the number of Private subnets required (0-3)
+    Default: 2
+    Type: Number
+
+  MainNumberOfPublicSubnets:
+    Description: Please enter the number of Public subnets required (0-3)
+    Default: 2
+    Type: Number
+
+  MainVpcCIDR:
+    Default: 10.0.0.0/16
+    Description: Please enter the IP range (CIDR notation) for this VPC
+    Type: String
+
+  MainPrivateSubnet1CIDR:
+    Default: 10.0.1.0/24
+    Description: Please enter the IP range (CIDR notation) for the private subnet 1
+    Type: String
+
+  MainPrivateSubnet2CIDR:
+    Default: 10.0.2.0/24
+    Description: Please enter the IP range (CIDR notation) for the private subnet 2
+    Type: String
+
+  MainPrivateSubnet3CIDR:
+    Default: 10.0.3.0/24
+    Description: Please enter the IP range (CIDR notation) for the private subnet 3
+    Type: String
+    
+  MainPublicSubnet1CIDR:
+    Default: 10.0.101.0/24
+    Description: Please enter the IP range (CIDR notation) for the public subnet 1
+    Type: String
+
+  MainPublicSubnet2CIDR:
+    Default: 10.0.102.0/24
+    Description: Please enter the IP range (CIDR notation) for the public subnet 2
+    Type: String
+
+  MainPublicSubnet3CIDR:
+    Default: 10.0.103.0/24
+    Description: Please enter the IP range (CIDR notation) for the private subnet 3
+    Type: String
+
+  MainSSHLocation:
+    AllowedPattern: '(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})/(\d{1,2})'
+    ConstraintDescription: must be a valid IP CIDR range of the form x.x.x.x/x.
+    Default: 0.0.0.0/0
+    Description: The IP address range that can be used to access the web server using SSH.
+    MaxLength: '18'
+    MinLength: '9'
+    Type: String
+
+## ----------------------------------------------------------------------
+Resources:
+
+  NestedVPC:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      Parameters:
+        VpcCIDR: !Ref MainVpcCIDR
+        NumberOfPrivateSubnets: !Ref MainNumberOfPrivateSubnets
+        NumberOfPublicSubnets: !Ref MainNumberOfPublicSubnets
+        PrivateSubnet1CIDR: !Ref MainPrivateSubnet1CIDR
+        PrivateSubnet2CIDR: !Ref MainPrivateSubnet2CIDR
+        PrivateSubnet3CIDR: !Ref MainPrivateSubnet3CIDR
+        PublicSubnet1CIDR: !Ref MainPublicSubnet1CIDR
+        PublicSubnet2CIDR: !Ref MainPublicSubnet2CIDR
+        PublicSubnet3CIDR: !Ref MainPublicSubnet3CIDR
+        SSHLocation: !Ref MainSSHLocation
+      TemplateURL: https://my-cloudformation-repo.s3.eu-west-2.amazonaws.com/nested-stacks/100-vpc.yaml
+      TimeoutInMinutes: 20
+
+
+## ----------------------------------------------------------------------
+Outputs:
+
+  StackRef:
+    Value: !Ref NestedVPC
+
