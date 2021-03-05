@@ -13,7 +13,6 @@ sudo service codedeploy-agent status
 
 ```
 
-
 # create a bucket and enable versioning
 ```
 aws s3 mb s3://aws-devops-course-frank --region eu-west-2 --profile aws-devops
