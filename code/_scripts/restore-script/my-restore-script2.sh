@@ -9,6 +9,7 @@
 # This script can also be used for upgrades by re-running on same host.
 #
 
+
 set -e
 
 REPLICATED_VERSION="2.49.0"

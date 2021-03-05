@@ -51,5 +51,6 @@ until sudo curl -f -s --connect-timeout 1 http://localhost/_health_check; do
   sleep 1
 done
 
+
 echo
 echo "Application booted!"

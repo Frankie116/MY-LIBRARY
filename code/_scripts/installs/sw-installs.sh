@@ -25,7 +25,6 @@ $ sudo apt install ansible
 
 
 
-
 ## INSTALL ANSIBLE ON MACOS:
 The preferred way to install Ansible on a Mac is with pip.
 

@@ -26,3 +26,5 @@ sudo systemctl start jenkins
 sudo systemctl status jenkins
 
 echo "<html><body><div>Welcome to the Jenkins Server (${my-scriptfile}) </div></body></html>" > /var/www/html/index.html
+
+
