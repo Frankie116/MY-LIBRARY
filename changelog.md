@@ -311,3 +311,9 @@ Changelog-031
 
 Changelog-031
         Added mobile.sh for details on mobile development. (xcode, swift, test flight etc)
+
+Changelog-032
+        Updated .gitignore and renamed some folders under code.
+
+Changelog-033
+        Updated .gitignore and renamed some codedeploy folders.
