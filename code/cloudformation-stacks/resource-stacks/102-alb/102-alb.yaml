@@ -1,0 +1,73 @@
+---
+# ---------------------------------------------------------------------------------------------------
+# version  1.0
+# Library: https://github.com/Frankie116/my-library.git
+# Creates an Application Load Balancer
+# ---------------------------------------------------------------------------------------------------
+
+# req:
+# 100-vpc
+# 106-sg
+
+AWSTemplateFormatVersion: 2010-09-09
+Description: This template creates an ALB.  The code is part of a standard modular infrastructure library.
+
+
+Metadata:
+
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - 
+        Label: 
+          default: "Export VPC Stack Name"
+        Parameters:
+          - ExportedVpc
+
+
+Parameters:
+
+  ExportedVpc:
+    Description: The name of the vpc stack that exports values
+    Type: String
+    Default: vpc
+
+  ExportedAlbSg:
+    Description: The name of the vpc stack that exports values
+    Type: String
+    Default: app1-alb-sg
+
+
+Resources:
+
+  ALB:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: MyAlb
+      SecurityGroups:
+        - Fn::ImportValue: !Sub ${ExportedAlbSg}-ALBSecurityGroup
+      Subnets: 
+        - Fn::ImportValue: !Sub ${ExportedVpc}-PublicSubnet1
+        - Fn::ImportValue: !Sub ${ExportedVpc}-PublicSubnet2
+
+
+Outputs:
+
+  ALB:
+    Description: ALB ID
+    Export:
+      Name: !Sub ${AWS::StackName}-ALB
+    Value: !Ref ALB
+
+  AlbDnsName:
+    Description: ALB DNS Name
+    Export:
+      Name: !Sub ${AWS::StackName}-AlbDnsName
+    Value: !GetAtt ALB.DNSName
+
+  AlbZoneID:
+    Description: ALB Canonical Hosted Zone ID
+    Export:
+      Name: !Sub ${AWS::StackName}-AlbZoneID
+    Value: !GetAtt ALB.CanonicalHostedZoneID
+
+  

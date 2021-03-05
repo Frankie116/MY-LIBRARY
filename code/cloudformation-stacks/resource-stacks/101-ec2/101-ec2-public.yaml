@@ -1,0 +1,92 @@
+---
+# ---------------------------------------------------------------------------------------------------
+# version  1.0
+# Library: https://github.com/Frankie116/my-library.git
+# Creates an EC2 instance
+# ---------------------------------------------------------------------------------------------------
+
+# req:
+# 100-vpc.yaml
+
+Description: This template creates an ec2 instance.  The code is part of a standard modular infrastructure library.
+
+
+
+Mappings: 
+
+  AWSRegionToAMI:
+        us-east-1:
+            AMI: ami-0915bcb5fa77e4892
+        us-east-2:
+            AMI: ami-09246ddb00c7c4fef 
+        us-west-1:
+            AMI: ami-066c82dabe6dd7f73
+        us-west-2:
+            AMI: ami-09c5e030f74651050
+        ap-northeast-2:
+            AMI: ami-006e2f9fa7597680a
+        ap-southeast-1:
+            AMI: ami-0d06583a13678c938
+        ap-southeast-2:
+            AMI: ami-075a72b1992cb0687
+        ap-northeast-1:
+            AMI: ami-09d28faae2e9e7138
+        ca-central-1:
+            AMI: ami-0df612970f825f04c
+        eu-central-1:
+            AMI: ami-02f9ea74050d6f812
+        eu-west-1:
+            AMI: ami-096f43ef67d75e998
+        eu-west-2:
+            AMI: ami-0ffd774e02309201f
+        eu-south-1: 
+            AMI: ami-00adf9322be77b621
+        eu-west-3:
+            AMI: ami-0ec28fc9814fce254
+        eu-north-1:
+            AMI: ami-02a6bfdcf8224bd77
+        sa-east-1:
+            AMI: ami-0a0bc0fa94d632c94
+
+
+           
+Parameters:
+
+    ExportVpcStackName:
+        Description: The name of the vpc stack that exports values
+        Type: String
+        Default: vpc
+
+
+
+Resources:  
+
+  WebServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId:  !FindInMap [AWSRegionToAMI, !Ref "AWS::Region", AMI]
+      InstanceType: t2.micro
+      NetworkInterfaces:
+      - GroupSet:
+        - Fn::ImportValue: !Sub "${ExportVpcStackName}-PublicSecurityGroup"
+        AssociatePublicIpAddress: 'true'
+        DeviceIndex: '0'
+        DeleteOnTermination: 'true'
+        SubnetId:
+          Fn::ImportValue: !Sub "${ExportVpcStackName}-PublicSubnet1"
+      UserData: 
+        !Base64 |
+          #!/bin/bash
+          yum update -y
+          yum install -y httpd
+          systemctl start httpd.service
+          systemctl enable httpd.service
+          echo "<h1>Hello World from $(hostname -f) </h1>" > /var/www/html/index.html      
+
+
+
+Outputs:
+
+  PublicIP:
+    Description: Public IP address of the newly created EC2 instance
+    Value: !Sub http://${WebServer.PublicIp} 

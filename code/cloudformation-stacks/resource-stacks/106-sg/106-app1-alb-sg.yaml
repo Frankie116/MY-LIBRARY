@@ -1,0 +1,75 @@
+---
+# ---------------------------------------------------------------------------------------------------
+# version  1.0
+# Library: https://github.com/Frankie116/my-library.git
+# Creates security groups
+# ---------------------------------------------------------------------------------------------------
+
+# req:
+# 100-vpc.yaml
+
+AWSTemplateFormatVersion: 2010-09-09
+Description: This template creates an ALB.  The code is part of a standard modular infrastructure library.
+
+
+Metadata:
+
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - 
+        Label: 
+          default: "Export VPC Stack Name"
+        Parameters:
+          - ExportVpcStackName
+
+
+
+Parameters:
+
+  ExportVpcStackName:
+    Description: The name of the vpc stack that exports values
+    Type: String
+    Default: vpc
+  
+  ListenerPort:
+    Type: Number
+    Default: 80
+
+
+
+Resources:
+      
+  ALBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable access on ports 80/443
+      VpcId:
+        Fn::ImportValue: !Sub ${ExportVpcStackName}-VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: !Ref ListenerPort
+          ToPort: !Ref ListenerPort
+          CidrIp: "0.0.0.0/0"
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: ALB Security Group
+
+
+
+Outputs:
+
+  ALBSecurityGroup:
+    Description: Application Load Balancer Security Group ID
+    Export:
+      Name: !Sub ${AWS::StackName}-ALBSecurityGroup
+    Value: !Ref ALBSecurityGroup
+
+  ListenerPort:
+    Description: Application Load Balancer Security Group ID
+    Export:
+      Name: !Sub ${AWS::StackName}-ListenerPort
+    Value: !Ref ListenerPort

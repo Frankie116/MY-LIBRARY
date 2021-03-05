@@ -1,0 +1,63 @@
+---
+# ---------------------------------------------------------------------------------------------------
+# version  1.0
+# Library: https://github.com/Frankie116/my-library.git
+# Creates parameters in AWS Systems Manager (formerly SSM)
+# ---------------------------------------------------------------------------------------------------
+
+# req:
+# None
+
+
+AWSTemplateFormatVersion: 2010-09-09
+Description: This template creates parameters in AWS Systems Manager (formerly SSM).
+
+
+
+Resources:  
+
+  AmiId:
+    Type: AWS::SSM::Parameter
+    Properties: 
+      Description: Parameter used in CloudFormation templates
+      Name: /EC2/AMI_ID
+      Type: String
+      Value: ami-096cb92bb3580c759
+      Tags:
+        Name: ami-ubuntu
+
+  InstanceType:
+    Type: AWS::SSM::Parameter
+    Properties: 
+      Description: Parameter used in CloudFormation templates
+      Name: /EC2/InstanceType
+      Type: String
+      Value: t2.micro
+      Tags:
+        Name: type-t2.micro
+
+  GoldenAmi:
+    Type: AWS::SSM::Parameter
+    Properties: 
+      Description: Parameter used in CloudFormation templates
+      Name: /EC2/ami-dani
+      Type: String
+      Value: ami-03dbddf2853028dc9    
+      Tags:
+        Name: ami-golden
+  
+
+
+Outputs:
+
+  AmiId:
+    Description: Parameter used in CloudFormation template
+    Value: !Ref AmiId
+
+  InstanceType:
+    Description: Parameter used in CloudFormation template
+    Value: !Ref InstanceType
+
+  GoldenAmi:
+    Description: Parameter used in CloudFormation template
+    Value: !Ref GoldenAmi

@@ -1,0 +1,67 @@
+---
+# ---------------------------------------------------------------------------------------------------
+# version  1.0
+# Library: https://github.com/Frankie116/my-library.git
+# Creates an EC2 instance
+# ---------------------------------------------------------------------------------------------------
+
+# req:
+# 100-vpc.yaml
+# The following two parameters are required to be configured in the parameter store for this template to work:
+# /EC2/InstanceType = [example - t2.micro] 
+# /EC2/AMI_ID = [example - ami-0ffd774e02309201f]
+
+
+
+Description: This template creates an ec2 instance using an AMI which is stored in the Parameter Store (SSM).
+
+    
+
+Parameters:
+
+  ImageId: 
+    Type: 'AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>'
+    Default: /EC2/AMI_ID
+
+  InstanceType:
+    Type: 'AWS::SSM::Parameter::Value<String>'
+    Default: /EC2/InstanceType
+
+  ExportVpcStackName:
+        Description: The name of the vpc stack that exports values
+        Type: String
+        Default: vpc
+
+
+
+Resources:  
+
+  WebServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref ImageId
+      InstanceType: !Ref InstanceType
+      NetworkInterfaces:
+      - GroupSet:
+        - Fn::ImportValue: !Sub "${ExportVpcStackName}-PublicSecurityGroup"
+        AssociatePublicIpAddress: 'true'
+        DeviceIndex: '0'
+        DeleteOnTermination: 'true'
+        SubnetId:
+          Fn::ImportValue: !Sub "${ExportVpcStackName}-PublicSubnet1"
+      UserData: 
+        !Base64 |
+          #!/bin/bash
+          yum update -y
+          yum install -y httpd
+          systemctl start httpd.service
+          systemctl enable httpd.service
+          echo "<h1>Hello World from $(hostname -f) </h1>" > /var/www/html/index.html      
+
+
+
+Outputs:
+
+  PublicIP:
+    Description: Public IP address of the newly created EC2 instance
+    Value: !Sub http://${WebServer.PublicIp} 

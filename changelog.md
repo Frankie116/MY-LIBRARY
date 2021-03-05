@@ -304,3 +304,7 @@ Changelog-029
 
 Changelog-030
         Added Cloudfromation cmds
+
+Changelog-031
+        Added XCode project
+        Added CloudFormation templates
