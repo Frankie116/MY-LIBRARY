@@ -317,3 +317,12 @@ Changelog-032
 
 Changelog-033
         Updated .gitignore and renamed some codedeploy folders.
+
+Changelog-034
+        Updated the following:
+        modified:   cmds/aws/cloudformation.sh
+        modified:   cmds/linux.sh
+        modified:   docs/known-issues.sh
+
+        Untracked files:
+        cmds/aws/route53.sh

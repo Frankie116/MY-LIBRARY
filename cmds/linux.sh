@@ -151,9 +151,14 @@ dig my.domain.com           ## same as nslookup (windows)
 ifconfig                    ## same as ipconfig (windows)
 ## ----------------------------------------------------------------
 
+## elevate user to super user 
+sudo su
 
 ## make whole directory structure (4 directories)
 sudo mkdir -p /etc/codedeploy-agent/conf/test
+
+# Get metadata (change the region accordingly)
+# /opt/aws/bin/cfn-get-metadata --stack CfnHupDemo --resource WebServerHost --region eu-west-2
 
 
 
