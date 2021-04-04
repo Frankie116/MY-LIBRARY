@@ -336,3 +336,6 @@ Changelog-035
         cmds/aws/SAM.sh
         cmds/aws/asg.sh
         cmds/aws/elasticbeanstalk.sh
+        
+Changelog-036
+        merged my other cloudformation repo into this one under cloudformation folder.
