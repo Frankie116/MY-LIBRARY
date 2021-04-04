@@ -326,3 +326,13 @@ Changelog-034
 
         Untracked files:
         cmds/aws/route53.sh
+
+Changelog-035
+        modified:   cmds/aws/codecommit.sh
+        modified:   cmds/docker.sh
+        modified:   code/_scripts/installs/sw-installs.sh
+
+        Untracked files:
+        cmds/aws/SAM.sh
+        cmds/aws/asg.sh
+        cmds/aws/elasticbeanstalk.sh
