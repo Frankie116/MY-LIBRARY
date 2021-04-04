@@ -1,16 +1,13 @@
 ---
 # ---------------------------------------------------------------------------------------------------
 # File: 100-vpc.yaml
-# Version  3.0
+# Version: 4.0
 # Library: https://github.com/Frankie116/my-library.git
-# Summary: Creates a VPC.  The user is able to choose how many private & public subnets to create. (min 1 - max 3) each.
-#
-# Requirements:
-# None
 # ---------------------------------------------------------------------------------------------------
 
 AWSTemplateFormatVersion: 2010-09-09
-Description: This template creates a vpc.  The user can choose how many private & public subnets to create. (min 1 - max 3) each.
+
+Description: This template creates a vpc.  The user is able to choose how many private & public subnets to create. (min 1 - max 3) each.
 
 ## ----------------------------------------------------------------------
 Metadata:

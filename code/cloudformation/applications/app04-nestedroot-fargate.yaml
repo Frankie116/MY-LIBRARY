@@ -1,0 +1,203 @@
+---
+# ---------------------------------------------------------------------------------------------------
+# File: app04-nestedroot-fargate.yaml
+# Version: 4.0
+# Library: https://github.com/Frankie116/my-library.git
+# Summary: This CloudFormation template creates a website hosted on AWS ECS Fargate using a docker image pulled from docker.io.
+# The infrastructure listed below are built using re-usable nested stacks: 
+# ECS Fargate, Application Loadbalancer, Route53 DNS Zone & records, Auto Scaling Groups, Security Groups.
+# 
+#
+# Dependant nested stacks:
+# https://my-cloudformation-repo.s3.eu-west-2.amazonaws.com/nested-stacks/100-vpc.yaml (or, an existing VPC is required)
+# https://my-cloudformation-repo.s3.eu-west-2.amazonaws.com/nested-stacks/401-alb.yaml
+# https://my-cloudformation-repo.s3.eu-west-2.amazonaws.com/nested-stacks/402-iam-roles.yaml
+# https://my-cloudformation-repo.s3.eu-west-2.amazonaws.com/nested-stacks/403-dns.yaml
+# https://my-cloudformation-repo.s3.eu-west-2.amazonaws.com/nested-stacks/404-fargate.yaml
+# https://my-cloudformation-repo.s3.eu-west-2.amazonaws.com/nested-stacks/405-asg.yaml
+# ---------------------------------------------------------------------------------------------------
+
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: This template creates an fargate application using an existing docker image..
+
+## ----------------------------------------------------------------------
+Metadata:
+
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - 
+        Label: 
+          default: "Application"
+        Parameters: 
+          - EcsServiceName
+          - EcsImage
+          - EcsDnsHostedZone
+          - EcsContainerPort
+      - 
+        Label: 
+          default: "Network"
+        Parameters: 
+          - EcsVpc
+          - EcsSubnets
+      - 
+        Label: 
+          default: "Security Group"
+        Parameters: 
+          - EcsListenerPort
+          - EcsSgSourceIp
+      - 
+        Label: 
+          default: "Target Group Port"
+        Parameters: 
+          - EcsTargetPort
+      - 
+        Label: 
+          default: "Health Check"
+        Parameters: 
+          - EcsHealthCheckPath
+          - EcsHealthCheckGracePeriod
+      - 
+        Label: 
+          default: "AutoScaling Group"
+        Parameters: 
+          - EcsAutoScalingTargetValue
+          - EcsMinContainers
+          - EcsMaxContainers
+      
+## ---------------------------------------------------------------------------------
+Parameters:
+  
+  EcsVpc:
+    Type: AWS::EC2::VPC::Id
+    Default: MainVpc
+
+  EcsSubnets:
+    Type: List<AWS::EC2::Subnet::Id>
+
+  EcsListenerPort:
+    Type: Number
+    Default: 8080
+
+  EcsSgSourceIp:
+    Type: String
+    Default: 0.0.0.0/0
+
+  EcsTargetPort:
+    Type: Number
+    Default: 8080
+
+  EcsHealthCheckPath:
+    Type: String
+    Default: /
+
+  EcsImage:
+    Type: String
+    Default: docker.io/frankie116/lab045-docker-image
+
+  EcsServiceName:
+    Type: String
+    Default: myservice
+
+  EcsContainerPort:
+    Type: Number
+    Default: 8080
+
+  EcsHealthCheckGracePeriod:
+    Type: Number
+    Default: 420
+
+  EcsDnsHostedZone:
+    Type: String
+    Default: company.com
+
+  EcsMinContainers:
+    Type: Number
+    Default: 2
+
+  EcsMaxContainers:
+    Type: Number
+    Default: 10
+
+  EcsAutoScalingTargetValue:
+    Type: Number
+    Default: 50
+
+## ---------------------------------------------------------------------------------
+Resources:
+
+  NestedStackAlb:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      Parameters:
+        Vpc: !Ref EcsVpc
+        Subnets: !Join [",", !Ref EcsSubnets]
+        AlbSgSourceIp: !Ref EcsSgSourceIp
+        ListenerPort: !Ref EcsListenerPort
+        TargetPort: !Ref EcsTargetPort
+        TargetType: "ip"
+        HealthCheckPath: !Ref EcsHealthCheckPath
+      TemplateURL: https://my-cloudformation-repo.s3.eu-west-2.amazonaws.com/nested-stacks/401-alb.yaml
+
+  NestedStackIamRoles:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      Parameters:
+        ServiceName: !Ref EcsServiceName
+      TemplateURL: https://my-cloudformation-repo.s3.eu-west-2.amazonaws.com/nested-stacks/402-iam-roles.yaml
+
+  NestedStackDns:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: NestedStackAlb
+    Properties:
+      Parameters:
+        RemoteStackAlb: !GetAtt NestedStackAlb.Outputs.StackName
+        EcsServiceName: !Ref EcsServiceName
+        DnsHostedZone: !Ref EcsDnsHostedZone
+        ContainerPort: !Ref EcsContainerPort
+      TemplateURL: https://my-cloudformation-repo.s3.eu-west-2.amazonaws.com/nested-stacks/403-dns.yaml
+
+  NestedStackFargate:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: [NestedStackAlb, NestedStackIamRoles, NestedStackDns]
+    Properties:
+      Parameters:
+        RemoteStackAlb: !GetAtt NestedStackAlb.Outputs.StackName
+        RemoteStackIamRoles: !GetAtt NestedStackIamRoles.Outputs.StackName
+        RemoteStackDns: !GetAtt NestedStackDns.Outputs.StackName
+        Vpc: !Ref EcsVpc
+        Subnets: !Join [",", !Ref EcsSubnets]
+        Image: !Ref EcsImage
+        ServiceName: !Ref EcsServiceName
+        ContainerPort: !Ref EcsContainerPort
+        HealthCheckGracePeriod: !Ref EcsHealthCheckGracePeriod
+        DnsHostedZone: !Ref EcsDnsHostedZone
+        AutoScalingTargetValue: !Ref EcsAutoScalingTargetValue
+      TemplateURL: https://my-cloudformation-repo.s3.eu-west-2.amazonaws.com/nested-stacks/404-fargate.yaml
+
+  NestedStackAsg:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: NestedStackFargate
+    Properties:
+      Parameters:
+        RemoteStackFargate: !GetAtt NestedStackFargate.Outputs.StackName
+        RemoteStackIamRoles: !GetAtt NestedStackIamRoles.Outputs.StackName
+        EcsServiceName: !Ref EcsServiceName
+        MinContainers: !Ref EcsMinContainers
+        MaxContainers: !Ref EcsMaxContainers
+        AutoScalingTargetValue: !Ref EcsAutoScalingTargetValue
+      TemplateURL: https://my-cloudformation-repo.s3.eu-west-2.amazonaws.com/nested-stacks/405-asg.yaml
+
+## ---------------------------------------------------------------------------------
+Outputs:
+
+  StackName:
+    Value: !Ref AWS::StackName
+    Export:
+      Name: !Sub ${AWS::StackName}
+
+  EcsEndpoint:
+    Description: Website address of ecs application
+    Value: !GetAtt NestedStackDns.Outputs.Endpoint
+    Export:
+      Name: !Sub ${AWS::StackName}-EcsEndpoint

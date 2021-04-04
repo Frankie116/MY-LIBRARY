@@ -1,0 +1,84 @@
+---
+# ---------------------------------------------------------------------------------------------------
+# File: 805.asg.yaml
+# Version: 4.0
+# Library: https://github.com/Frankie116/my-library.git
+# ---------------------------------------------------------------------------------------------------
+
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: This template creates an fargate application using an existing docker image..
+
+## ----------------------------------------------------------------------
+Metadata:
+
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - 
+        Label: 
+          default: "Please enter the name of the service"
+        Parameters: 
+          - ServiceName
+
+## ---------------------------------------------------------------------------------
+Parameters:
+
+  EcsServiceName:
+    Type: String
+    Default: MyService
+
+  MinContainers:
+    Type: Number
+    Default: 2
+
+  MaxContainers:
+    Type: Number
+    Default: 10
+
+  AutoScalingTargetValue:
+    Type: Number
+    Default: 50
+
+  RemoteStackIamRoles: 
+    Type: String
+
+  RemoteStackFargate: 
+    Type: String
+    Default: service/default/MyService
+      
+## ---------------------------------------------------------------------------------
+Resources:
+
+  AutoScalingTarget:
+    Type: AWS::ApplicationAutoScaling::ScalableTarget
+    Properties:
+      MinCapacity: !Ref MinContainers
+      MaxCapacity: !Ref MaxContainers
+      ResourceId:
+        Fn::ImportValue: !Sub '${RemoteStackFargate}-ResourceId'
+      ScalableDimension: ecs:service:DesiredCount
+      ServiceNamespace: ecs
+      RoleARN:
+        Fn::ImportValue: !Sub '${RemoteStackIamRoles}-AutoScalingRoleArn'
+      
+  AutoScalingPolicy:
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    Properties:
+      PolicyName: !Join ['', [!Ref EcsServiceName, AutoScalingPolicy]]
+      PolicyType: TargetTrackingScaling
+      ScalingTargetId: !Ref AutoScalingTarget
+      TargetTrackingScalingPolicyConfiguration:
+        PredefinedMetricSpecification:
+          PredefinedMetricType: ECSServiceAverageCPUUtilization
+        ScaleInCooldown: 10
+        ScaleOutCooldown: 10
+        TargetValue: !Ref AutoScalingTargetValue
+
+## ---------------------------------------------------------------------------------
+Outputs:
+
+  StackName:
+    Value: !Ref AWS::StackName
+    Export:
+      Name: !Sub ${AWS::StackName}-StackName
+

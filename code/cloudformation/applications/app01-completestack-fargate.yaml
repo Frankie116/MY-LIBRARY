@@ -1,8 +1,9 @@
 ---
 # ---------------------------------------------------------------------------------------------------
-# version  1.0
+# File: app01-completestack-fargate.yaml
+# Version: 1.0
 # Library: https://github.com/Frankie116/my-library.git
-# Creates a website hosted on AWS ECS Fargate using a docker image pulled from docker.io.
+# Summary: Creates a website hosted on AWS ECS Fargate using a docker image pulled from docker.io.
 # This template builds the complete infrastructure.  Modular templates are not required for this project.
 # Infrastructure created with this template include the following:
 # VPC, ECS Fargate, Subnets, Application Loadbalancer, Route53 DNS Zone & records, Auto Scaling Groups, Security Groups,
@@ -13,6 +14,7 @@
 
 AWSTemplateFormatVersion: 2010-09-09
 Description: An example CloudFormation template for Fargate.
+
 
 
 Parameters:

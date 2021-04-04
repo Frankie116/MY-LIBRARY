@@ -1,0 +1,79 @@
+---
+# ---------------------------------------------------------------------------------------------------
+# File: 403.dns.yaml
+# Version: 4.0
+# Library: https://github.com/Frankie116/my-library.git
+# ---------------------------------------------------------------------------------------------------
+
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: This template creates a route53 dns record in a specified hosted zone.  This allows the website to use a customised domain name. 
+
+## ----------------------------------------------------------------------
+Metadata:
+
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - 
+        Label: 
+          default: "Please enter the name of the service"
+        Parameters: 
+          - ServiceName
+
+## ---------------------------------------------------------------------------------
+Parameters:
+
+  EcsServiceName:
+    Type: String
+    Default: intracom
+
+  DnsHostedZone:
+    Type: String
+    Default: intracom.uk
+
+  ContainerPort:
+    Type: Number
+    Default: 8080
+      
+  RemoteStackAlb: 
+    Type: String
+
+## ---------------------------------------------------------------------------------
+Resources:
+
+  DnsRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneName: !Join ['', [!Ref DnsHostedZone, .]]
+      Name: !Join ['', [!Ref EcsServiceName, ., !Ref DnsHostedZone, .]]
+      Type: A
+      AliasTarget:
+        DNSName: 
+          Fn::ImportValue: !Sub '${RemoteStackAlb}-AlbDnsName'
+        HostedZoneId: 
+          Fn::ImportValue: !Sub '${RemoteStackAlb}-AlbZoneID'
+
+## ---------------------------------------------------------------------------------
+Outputs:
+
+  StackName:
+    Value: !Ref AWS::StackName
+    Export:
+      Name: !Sub ${AWS::StackName}-StackName
+
+  RemoteStackAlb:
+    Value: !Ref RemoteStackAlb
+    Export:
+      Name: !Sub ${AWS::StackName}-RemoteStackAlb
+
+  DnsRecord:
+    Description: Dns record
+    Value: !Ref DnsRecord
+    Export:
+      Name: !Sub ${AWS::StackName}-DnsRecord
+
+  Endpoint:
+    Description: Endpoint
+    Value: !Join ['', ['http://', !Ref DnsRecord, ':', !Ref ContainerPort]]
+    Export:
+      Name: !Sub ${AWS::StackName}-Endpoint

@@ -1,0 +1,198 @@
+---
+# ---------------------------------------------------------------------------------------------------
+# File: 401-alb.yaml
+# Version: 4.0
+# Library: https://github.com/Frankie116/my-library.git
+# ---------------------------------------------------------------------------------------------------
+
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: Creates an application load balancer, alb security group, target group & alb listeners.
+
+## ----------------------------------------------------------------------
+Metadata:
+
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - 
+        Label: 
+          default: "Network"
+        Parameters: 
+          - Vpc
+          - Subnets
+      - 
+        Label: 
+          default: "Security Group"
+        Parameters: 
+          - ListenerPort
+          - AlbSgSourceIp
+      - 
+        Label: 
+          default: "Target Group"
+        Parameters: 
+          - TargetPort
+          - TargetType
+          - HealthCheckPath
+
+## ----------------------------------------------------------------------
+Parameters:
+
+  Vpc:
+    Type: AWS::EC2::VPC::Id
+    Default: MainVpc
+
+  Subnets:
+    Type: List<AWS::EC2::Subnet::Id>
+
+  AlbSgSourceIp:
+    Type: String
+    Default: 0.0.0.0/0
+
+  ListenerPort:
+    Type: Number
+    Default: 8080
+
+  TargetPort:
+    Type: Number
+    Default: 8080
+
+  TargetType:
+    Type: String
+    Default: ip
+    AllowedValues: [instance, ip]
+    ConstraintDescription: must specify instance or ip
+
+  HealthCheckPath:
+    Type: String
+    Default: /
+
+## ----------------------------------------------------------------------
+Resources:
+
+  AlbSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Enable access on ports 80/443
+      VpcId: !Ref Vpc
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: !Ref ListenerPort
+          ToPort: !Ref ListenerPort
+          CidrIp: !Ref AlbSgSourceIp
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: !Ref AlbSgSourceIp
+      Tags:
+        - Key: Name
+          Value: Security Group
+
+  Alb:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    DependsOn: AlbSecurityGroup
+    Properties:
+      Name: MyAlb
+      SecurityGroups: 
+          - !Ref AlbSecurityGroup
+      Subnets: !Ref Subnets
+    
+  TargetGroup:
+      Type: AWS::ElasticLoadBalancingV2::TargetGroup
+      DependsOn: AlbSecurityGroup
+      Properties:
+        Name: TargetGroup
+        VpcId: !Ref Vpc
+        HealthCheckPath: !Ref HealthCheckPath
+        HealthCheckIntervalSeconds: 10
+        HealthCheckTimeoutSeconds: 5
+        UnhealthyThresholdCount: 5
+        HealthyThresholdCount: 2
+        Matcher:
+          HttpCode: 200,302
+        Port:  !Ref TargetPort
+        Protocol: HTTP
+        TargetType: !Ref TargetType
+        TargetGroupAttributes:
+          - Key: deregistration_delay.timeout_seconds
+            Value: 60
+    
+  Listener:
+      Type: AWS::ElasticLoadBalancingV2::Listener
+      DependsOn: AlbSecurityGroup
+      Properties:
+        DefaultActions:
+          - Type: forward
+            TargetGroupArn: !Ref TargetGroup
+        LoadBalancerArn: !Ref Alb
+        Port: !Ref ListenerPort
+        Protocol: HTTP
+
+# ----------------------------------------------------------------------
+Outputs:
+
+  StackName:
+    Value: !Ref AWS::StackName
+    Export:
+      Name: !Sub ${AWS::StackName}-StackName
+
+  Alb:
+    Description: Alb Id
+    Value: !Ref Alb
+    Export:
+      Name: !Sub ${AWS::StackName}-Alb
+    
+  AlbSecurityGroup:
+    Description: Security Group ID
+    Value: !GetAtt AlbSecurityGroup.GroupId
+    Export:
+      Name: !Sub ${AWS::StackName}-AlbSecurityGroup
+
+  ListenerPort:
+    Description: Alb Listener port
+    Value: !Ref ListenerPort
+    Export:
+      Name: !Sub ${AWS::StackName}-ListenerPort
+
+  TargetPort:
+    Description: Port to target on the target group
+    Value: !Ref TargetPort
+    Export:
+      Name: !Sub ${AWS::StackName}-TargetPort
+
+  TargetType:
+    Description: The type of the target group (ip or instance)
+    Value: !Ref TargetType
+    Export:
+      Name: !Sub ${AWS::StackName}-TargetType
+
+  HealthCheckPath:
+    Description: Path used to verify that webserver is healthy
+    Value: !Ref HealthCheckPath
+    Export:
+      Name: !Sub ${AWS::StackName}-HealthCheckPath
+
+  TargetGroup:
+    Description: Webserver target group id
+    Value: !Ref TargetGroup
+    Export:
+      Name: !Sub ${AWS::StackName}-TargetGroup
+
+  Listener:
+    Description: Alb Listener on port 80
+    Value: !Ref Listener
+    Export:
+      Name: !Sub ${AWS::StackName}-Listener
+
+  AlbDnsName:
+    Description: Alb DNS Name
+    Value: !GetAtt Alb.DNSName
+    Export:
+      Name: !Sub ${AWS::StackName}-AlbDnsName
+
+  AlbZoneID:
+    Description: Alb Canonical Hosted Zone ID
+    Value: !GetAtt Alb.CanonicalHostedZoneID
+    Export:
+      Name: !Sub ${AWS::StackName}-AlbZoneID
+
+  

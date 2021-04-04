@@ -2,7 +2,7 @@
 # ---------------------------------------------------------------------------------------------------
 # version  1.0
 # Library: https://github.com/Frankie116/my-library.git
-# Creates an Application Load Balancer
+# Creates an application load balancer only.
 # ---------------------------------------------------------------------------------------------------
 
 # req:

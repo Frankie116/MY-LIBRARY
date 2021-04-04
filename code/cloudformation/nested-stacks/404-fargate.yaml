@@ -1,0 +1,191 @@
+---
+# ---------------------------------------------------------------------------------------------------
+# File: 404-fargate.yaml
+# Version: 4.0
+# Library: https://github.com/Frankie116/my-library.git
+# ---------------------------------------------------------------------------------------------------
+
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: This template creates an AWS ECS fargate application using an existing docker image.
+
+## ----------------------------------------------------------------------
+Metadata:
+
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - 
+        Label: 
+          default: "Application"
+        Parameters: 
+          - ServiceName
+          - Image
+          - DnsHostedZone
+          - ContainerPort
+      - 
+        Label: 
+          default: "Network"
+        Parameters: 
+          - Vpc
+          - Subnets
+      - 
+        Label: 
+          default: "Health Check"
+        Parameters: 
+          - HealthCheckGracePeriod
+      - 
+        Label: 
+          default: "AutoScaling Group"
+        Parameters: 
+          - AutoScalingTargetValue
+
+      
+## ---------------------------------------------------------------------------------
+Parameters:
+  
+  Vpc:
+    Type: AWS::EC2::VPC::Id
+    Default: MainVpc
+
+  Subnets:
+    Type: List<AWS::EC2::Subnet::Id>
+
+  Image:
+    Type: String
+    Default: docker.io/frankie116/lab045-docker-image
+
+  ServiceName:
+    Type: String
+    Default: test
+
+  ContainerPort:
+    Type: Number
+    Default: 8080
+
+  HealthCheckGracePeriod:
+    Type: Number
+    Default: 420
+
+  DnsHostedZone:
+    Type: String
+    Default: company.com
+
+  AutoScalingTargetValue:
+    Type: Number
+    Default: 50
+
+  RemoteStackAlb: 
+    Type: String
+
+  RemoteStackIamRoles: 
+    Type: String
+
+  RemoteStackDns: 
+    Type: String
+  
+
+## ---------------------------------------------------------------------------------
+Resources:
+
+  Cluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: !Join ['', [!Ref ServiceName, Cluster]]
+
+  Service:
+    Type: AWS::ECS::Service
+    Properties: 
+      ServiceName: !Ref ServiceName
+      Cluster: !Ref Cluster
+      TaskDefinition: !Ref TaskDefinition
+      DeploymentConfiguration:
+        MinimumHealthyPercent: 100
+        MaximumPercent: 200
+      DesiredCount: 2
+      HealthCheckGracePeriodSeconds: !Ref HealthCheckGracePeriod
+      LaunchType: FARGATE
+      NetworkConfiguration: 
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          Subnets: !Ref Subnets
+          SecurityGroups:
+            - !Ref ContainerSecurityGroup
+      LoadBalancers:
+        - ContainerName: !Ref ServiceName
+          ContainerPort: !Ref ContainerPort
+          TargetGroupArn: 
+            Fn::ImportValue: !Sub '${RemoteStackAlb}-TargetGroup'
+
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    DependsOn: LogGroup
+    Properties:
+      Family: !Join ['', [!Ref ServiceName, TaskDefinition]]
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - FARGATE
+      Cpu: 256
+      Memory: 0.5GB
+      ExecutionRoleArn: 
+        Fn::ImportValue: !Sub '${RemoteStackIamRoles}-ExecutionRoleArn'
+      TaskRoleArn: 
+        Fn::ImportValue: !Sub '${RemoteStackIamRoles}-TaskRoleArn'
+      ContainerDefinitions:
+        - Name: !Ref ServiceName
+          Image: !Ref Image
+          PortMappings:
+            - ContainerPort: !Ref ContainerPort
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-region: !Ref AWS::Region
+              awslogs-group: !Ref LogGroup
+              awslogs-stream-prefix: ecs
+
+  ContainerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: !Join ['', [!Ref ServiceName, ContainerSecurityGroup]]
+      VpcId: !Ref Vpc
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: !Ref ContainerPort
+          ToPort: !Ref ContainerPort
+          SourceSecurityGroupId: 
+            Fn::ImportValue: !Sub '${RemoteStackAlb}-AlbSecurityGroup'
+
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Join ['', [/ecs/, !Ref ServiceName, TaskDefinition]]
+
+
+## ---------------------------------------------------------------------------------
+Outputs:
+
+  StackName:
+    Value: !Ref AWS::StackName
+    Export:
+      Name: !Sub ${AWS::StackName}-StackName
+
+  Cluster:
+    Value: !Ref Cluster
+    Export:
+      Name: !Sub ${AWS::StackName}-Cluster
+
+  Service:
+    Value: !Ref Service
+    Export:
+      Name: !Sub ${AWS::StackName}-Service
+
+  Endpoint:
+    Description: Website address of ecs application
+    Value: 
+      Fn::ImportValue: !Sub '${RemoteStackDns}-Endpoint'
+    Export:
+      Name: !Sub ${AWS::StackName}-Endpoint
+
+  ResourceId: 
+    Value: !Join ['/', [service, !Ref Cluster, !GetAtt Service.Name]]
+    Export:
+      Name: !Sub ${AWS::StackName}-ResourceId

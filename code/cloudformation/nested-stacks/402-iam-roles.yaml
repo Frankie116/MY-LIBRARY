@@ -1,0 +1,118 @@
+---
+# ---------------------------------------------------------------------------------------------------
+# File: 802-iam-roles.yaml
+# Version: 4.0
+# Library: https://github.com/Frankie116/my-library.git
+# ---------------------------------------------------------------------------------------------------
+
+AWSTemplateFormatVersion: 2010-09-09
+
+Description: This template creates the IAM roles required to allow ecs execute various actions
+
+## ----------------------------------------------------------------------
+Metadata:
+
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - 
+        Label: 
+          default: "Please enter the name of the service"
+        Parameters: 
+          - ServiceName
+      
+## ---------------------------------------------------------------------------------
+Parameters:
+
+  ServiceName:
+    Type: String
+    Default: MyService
+
+## ---------------------------------------------------------------------------------
+Resources:
+
+  ExecutionRole:
+      Type: AWS::IAM::Role
+      Properties:
+        RoleName: !Join ['', [!Ref ServiceName, ExecutionRole]]
+        AssumeRolePolicyDocument:
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service: ecs-tasks.amazonaws.com
+              Action: 'sts:AssumeRole'
+        ManagedPolicyArns:
+          - 'arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy'
+
+  TaskRole:
+      Type: AWS::IAM::Role
+      Properties:
+        RoleName: !Join ['', [!Ref ServiceName, TaskRole]]
+        AssumeRolePolicyDocument:
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service: ecs-tasks.amazonaws.com
+              Action: 'sts:AssumeRole'
+        # ManagedPolicyArns:
+        #   -
+        # Policies:
+        #   -
+
+  AutoScalingRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Join ['', [!Ref ServiceName, AutoScalingRole]]
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - 'arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceAutoscaleRole'  
+
+## ---------------------------------------------------------------------------------
+Outputs:
+
+  StackName:
+    Value: !Ref AWS::StackName
+    Export:
+      Name: !Sub ${AWS::StackName}-StackName
+
+  ExecutionRole:
+    Description: IAM Task execution role
+    Value: !Ref ExecutionRole
+    Export:
+      Name: !Sub ${AWS::StackName}-ExecutionRole
+
+  ExecutionRoleArn:
+    Description: IAM Task execution role
+    Value: !GetAtt ExecutionRole.Arn
+    Export:
+      Name: !Sub ${AWS::StackName}-ExecutionRoleArn
+
+  TaskRole:
+    Description: IAM Task role
+    Value: !Ref TaskRole
+    Export:
+      Name: !Sub ${AWS::StackName}-TaskRole
+
+  TaskRoleArn:
+    Description: IAM Task role Arn
+    Value: !GetAtt TaskRole.Arn
+    Export:
+      Name: !Sub ${AWS::StackName}-TaskRoleArn
+
+  AutoScalingRole:
+    Description: IAM AutoScalingRole role
+    Value: !Ref AutoScalingRole
+    Export:
+      Name: !Sub ${AWS::StackName}-AutoScalingRole
+
+  AutoScalingRoleArn:
+    Description: IAM AutoScalingRole role ARN
+    Value: !GetAtt AutoScalingRole.Arn
+    Export:
+      Name: !Sub ${AWS::StackName}-AutoScalingRoleArn
+
+  
