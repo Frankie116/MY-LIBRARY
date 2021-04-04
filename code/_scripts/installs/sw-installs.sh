@@ -52,3 +52,6 @@ If you wish to install Ansible globally, run the following commands:
 $ sudo python get-pip.py
 $ sudo python -m pip install ansible
 ## ----------------------------------------------------------------------
+## Elastic Beanstalk CLI
+
+https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html

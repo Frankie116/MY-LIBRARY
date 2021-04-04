@@ -213,12 +213,14 @@ docker rm $(docker ps -a -q)
 ## containers using this image need to be stopped & deleted before image can be deleted
 docker rmi <image-name>
 
+docker rmi <image-name>:<tag>
+
+
 ## deletes all images
 docker rmi $(docker images -a -q)
 
 ## deletes selected images
 docker rmi $(<container-id-1> <container-id-2>)
-
 
 ## --------------------------------------------
 ## Delete networks
