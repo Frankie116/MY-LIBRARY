@@ -162,6 +162,14 @@ sudo mkdir -p /etc/codedeploy-agent/conf/test
 
 
 
+## ----------------------------------------------------------------
+## start apache webserver
+sudo systemctl start httpd
+
+## check localhost webpage
+curl localhost:80
+
+
 
 
 

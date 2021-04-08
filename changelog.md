@@ -339,3 +339,16 @@ Changelog-035
         
 Changelog-036
         merged my other cloudformation repo into this one under cloudformation folder.
+
+Changelog-037
+        added ssm cmds & cloudformation templates
+        modified:   cmds/aws/asg.sh
+        modified:   cmds/linux.sh
+
+        Untracked files:
+        cmds/aws/ssm.sh
+        code/cloudformation/applications/app05-stepfunction-lambda-sns.yaml
+        code/cloudformation/resource-stacks/107-sns/
+        code/cloudformation/resource-stacks/109-lambda/
+
+        

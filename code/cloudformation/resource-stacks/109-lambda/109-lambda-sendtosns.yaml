@@ -1,0 +1,78 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: AWS Step Functions sample project for scheduling a task
+
+
+Resources:
+
+## ----------------------------------------------------------------------
+  LambdaExecutionRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: "sts:AssumeRole"
+      Policies:
+        - PolicyName: SNSPublishPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "SNS:Publish"
+                Resource: !Ref SNSTopic
+
+  ## ----------------------------------------------------------------------
+  SNSTopic:
+    Type: "AWS::SNS::Topic"
+    Properties:
+      DisplayName: "MyNewSNSTopic"
+
+## ----------------------------------------------------------------------
+  SendToSNS:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      Handler: "index.lambda_handler"
+      Role: !GetAtt [ LambdaExecutionRole, Arn ]
+      Code:
+        ZipFile: |
+          console.log('Loading function');
+          const aws = require('aws-sdk');
+
+          exports.lambda_handler = (event, context, callback) => {
+              const sns = new aws.SNS();
+              console.log(`Sending message to SNS topic ${event.topic}`);
+              const messageInfo = {
+                  Message: event.message,
+                  TopicArn: event.topic
+              };
+              sns.publish(messageInfo, (err, data) => {
+                  if (err) {
+                      console.error(err.message);
+                      callback(err.message);
+                      return;
+                  }
+                  console.log(data);
+                  callback(null);
+              });
+          };
+
+      Runtime: "nodejs12.x"
+      Timeout: "25"
+
+## ----------------------------------------------------------------------
+Outputs:
+
+  ExecutionInput:
+    Description: Sample input to StartExecution.
+    Value:
+      !Sub
+        - |-
+          {
+            "topic": "${topicArn}",
+            "message": "HelloWorld",
+          }
+        - {topicArn: !Ref SNSTopic}
