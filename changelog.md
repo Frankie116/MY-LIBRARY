@@ -351,4 +351,7 @@ Changelog-037
         code/cloudformation/resource-stacks/107-sns/
         code/cloudformation/resource-stacks/109-lambda/
 
+Changelog-038
+        removed xcode from this repo
+
         

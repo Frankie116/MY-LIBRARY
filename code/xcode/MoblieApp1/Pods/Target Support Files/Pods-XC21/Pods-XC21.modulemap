@@ -1,6 +1,0 @@
-framework module Pods_XC21 {
-  umbrella header "Pods-XC21-umbrella.h"
-
-  export *
-  module * { export * }
-}
