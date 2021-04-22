@@ -340,5 +340,5 @@ Changelog-035
 Changelog-036
         merged my other cloudformation repo into this one under cloudformation folder.
 
-Changelog-037
+Changelog-039
         updated cmds/aws/asg.sh & cmds/docker.sh
