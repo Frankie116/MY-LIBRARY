@@ -354,4 +354,5 @@ Changelog-037
 Changelog-038
         removed xcode from this repo
 
-        
+Changelog-039
+        updated cmds/aws/asg.sh and cmds/docker.sh
