@@ -77,7 +77,6 @@ docker run -d \
 mongo
 
 
-
 ## -----------------------------------------------------------------
 ## Pull/start multiple containers simutaneously using docker-compose 
 ## file.  This cmd also creates required docker networks
@@ -258,10 +257,6 @@ http://0.0.0.0:8080/
 <CTRL+C>
 or
 docker stop <container-id>
-
-
-
-
 
 ```
 

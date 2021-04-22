@@ -70,6 +70,7 @@ The following example command resumes all scaling activities for the specified s
 aws application-autoscaling register-scalable-target --service-namespace dynamodb \
   --scalable-dimension dynamodb:table:ReadCapacityUnits --resource-id table/my-table \
   --suspended-state file://config.json
+  
 ## --------------------------------------------
 #!/bin/bash
 
