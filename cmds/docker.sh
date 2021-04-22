@@ -227,10 +227,43 @@ docker rmi $(<container-id-1> <container-id-2>)
 ## --------------------------------------------
 docker network rm <my-network-id>
 
+
+
+## --------------------------------------------
+## Example
+## --------------------------------------------
+
+# 1 - Start docker daemon on workstation
+open -a Docker
+
+# 2 - Pull Jenkins container from dockerhub
+docker pull frankie116/lab045-docker-image
+
+# 3 - View image on local workstation
+docker images
+
+# 4 - View all containers on workstation
+docker ps -a
+
+# 5 - Run docker image
+docker run -p 8080:8080 --name myjenkinscontainer frankie116/lab045-docker-image:latest
+
+# 6 - open application in browser
+http://0.0.0.0:8080/
+
+# 7 - Copy the password displayed in CLI from step 5 & paste into browser
+
+
+# 8 - Stop container
+<CTRL+C>
+or
+docker stop <container-id>
+
+
+
+
+
 ```
-
-
-
 
 
 
