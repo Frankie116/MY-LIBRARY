@@ -356,3 +356,8 @@ Changelog-038
 
 Changelog-039
         updated cmds/aws/asg.sh and cmds/docker.sh
+
+Changelog-040
+        modified:   changelog.md
+        modified:   cmds/aws/asg.sh
+        modified:   cmds/docker.sh
