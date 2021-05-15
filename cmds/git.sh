@@ -164,11 +164,11 @@ GIT DIFF
 GIT RESET
 
 ## Define the author name to be used for all commits by the current user.
-git config --global user.name <name>
+git config --global user.name "name"
 
 
 ## Define the author email to be used for all commits by the current user.
-git config --global user.email <email>
+git config --global user.email "email"
 
 
 ## Create shortcut for a Git command. E.g. alias.glog “log --graph --oneline” will set ”git glog”equivalent to ”git log --graph --oneline.
