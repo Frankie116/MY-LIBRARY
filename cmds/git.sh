@@ -20,11 +20,13 @@ git init <directory>
 ## Clone repo located at <repo> onto local machine.
 git clone <repo>
 
+git clone https://username@github.com/organization/repo.git
+
+
 
 ## Define author name to be used for all commits in current repo. Devs commonly use --global flag to set config options for current user.
 git config user.name <name>
 
-git clone https://username@github.com/organization/repo.git
 
 
 ## Stage all changes in <directory> for the next commit. Or stage the specific file for next commit.
