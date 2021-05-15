@@ -24,6 +24,8 @@ git clone <repo>
 ## Define author name to be used for all commits in current repo. Devs commonly use --global flag to set config options for current user.
 git config user.name <name>
 
+git clone https://username@github.com/organization/repo.git
+
 
 ## Stage all changes in <directory> for the next commit. Or stage the specific file for next commit.
 git add <directory>
@@ -86,6 +88,11 @@ git checkout -b <branch>
 ## Merge <branch> into the current branch.
 git merge <branch>
 
+## Copy branch from remote repo to local repo
+git branch -f dev origin/dev
+
+
+
 
 # ----------------------------------------------------------------------------------------------
 #  REMOTE REPOSITORIES
@@ -97,15 +104,25 @@ git remote -v
 git remote add <name> <url>
 
 i.e
-git remote add origin https://github.com/Frankie116/APP01-mongodb.git
+git remote add origin https://yourusername@github.com/user/repo.git
+
+
 
 
 ## Add a url mapping to an existing repo
-git remote set-url --add origin https://github.com/Frankie116/CLOUDFORMATION-templates.git
+git remote set-url --add origin https://yourusername@github.com/user/repo.git
+
+
 
 
 ## delete a url mapping to an existing repo
 git remote set-url --delete origin https://github.com/Frankie116/CLOUDFORMATION-modules.git
+
+
+
+git remote set-url origin https://yourusername@github.com/user/repo.git
+
+
 
 
 ## Fetches a specific <branch>, from the repo. Leave off <branch> to fetch all remote refs.

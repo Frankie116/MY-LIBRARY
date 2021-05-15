@@ -25,4 +25,11 @@ git remote -v
 
 --------------------------------------------------------------------------------------------------------------
 
-use same cmds as used for github (git add, git push, git pull, git remote etc
+# use same cmds as used for github (git add, git push, git pull, git remote etc
+
+
+
+--------------------------------------------------------------------------------------------------------------
+
+#create a codecommit repository called my-repo
+aws codecommit create-repository --repository-name my-repo --repository-description "My Description"

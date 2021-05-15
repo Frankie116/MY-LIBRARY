@@ -27,5 +27,9 @@ cat /var/log/cfn.init.log
 
 
 ## -----------------------------------------
+## Create a cloudformation stack that creates a codepipeline
+## See example project: https://github.com/aws-samples/codepipeline-nested-cfn
+
+aws cloudformation create-stack --stack-name NestedCFN-CodePipeline --template-body file://codepipeline-cfn-codebuild.yml --parameters file://codepipeline-cfn-codebuild.json --capabilities CAPABILITY_NAMED_IAM
 
 ## -----------------------------------------

@@ -1,7 +1,4 @@
-# ---------------------------------------------------------------------------------------------------
-# Library: /mygit/frankie116/library/v2.0
-# Specifies which files to ignore when pushing to github
-# ---------------------------------------------------------------------------------------------------
+# gitignore v3.0
 
 # Local .archive directories
 **/_Archive/*
@@ -145,7 +142,64 @@ build/
 !default.perspectivev3
 
 
-# Xcode 4 - semi-personal settings
+# ---------------------------------------------------------------------------------------------------
+####### Crypto - Solididty etc
+# ---------------------------------------------------------------------------------------------------
+
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+.idea/
+
+# production
+/build
+
+# misc
+.DS_Store
+.eslintcache
+
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+debug.log*
+
+# secret files
+.secret
+
+
+# CRYPTO
+*.swp
+tags
+build
+dist
+tags.*
+dapp-30/day99-university
+**/.env
+
+
+
+
+
+
+# Xcode 4 - semi-personal settings ----------------------------------------------------------
 #
 # Apple Shared data that Apple put in the wrong folder
 # c.f. http://stackoverflow.com/a/19260712/153422
