@@ -107,11 +107,8 @@ i.e
 git remote add origin https://yourusername@github.com/user/repo.git
 
 
-
-
 ## Add a url mapping to an existing repo
 git remote set-url --add origin https://yourusername@github.com/user/repo.git
-
 
 
 
@@ -119,9 +116,8 @@ git remote set-url --add origin https://yourusername@github.com/user/repo.git
 git remote set-url --delete origin https://github.com/Frankie116/CLOUDFORMATION-modules.git
 
 
-
+## change the 
 git remote set-url origin https://yourusername@github.com/user/repo.git
-
 
 
 
